@@ -1,6 +1,6 @@
 package com.lzadrija.account;
 
-import com.lzadrija.account.registration.AccountVerificationException;
+import com.lzadrija.account.registration.AccountRegistrationException;
 import java.text.MessageFormat;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class AccountFactory {
 
         if (repo.findOne(id) != null) {
             logger.error("Account ID: " + id + " already exists");
-            throw new AccountVerificationException(MessageFormat.format(env.getRequiredProperty("accountId.already.exists"), id));
+            throw new AccountRegistrationException(MessageFormat.format(env.getRequiredProperty("accountId.already.exists"), id));
         }
     }
 

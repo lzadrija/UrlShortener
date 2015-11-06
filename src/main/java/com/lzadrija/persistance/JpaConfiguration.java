@@ -52,7 +52,7 @@ public class JpaConfiguration {
         emFactoryBean.setJpaVendorAdapter(vendorAdapter);
         emFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
         emFactoryBean.setDataSource(dataSource());
-        
+
         Properties properties = new Properties();
         properties.setProperty(JPA_DIALECT.getName(), env.getRequiredProperty(JPA_DIALECT.getName()));
         emFactoryBean.setJpaProperties(properties);
@@ -99,7 +99,7 @@ public class JpaConfiguration {
             this.propName = propertyName;
         }
 
-         String getName() {
+        String getName() {
             return propName;
         }
 

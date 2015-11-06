@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lzadrija.MainConfiguration;
-import com.lzadrija.account.registration.AccountExceptionHandler;
+import com.lzadrija.account.registration.AccountExceptionsHandler;
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
-import com.lzadrija.account.registration.AccountVerificationException;
+import com.lzadrija.account.registration.AccountRegistrationException;
 import java.lang.reflect.Method;
 import java.net.URI;
 import org.junit.Before;
@@ -71,8 +71,8 @@ public class AccountControllerTest {
             @Override
             protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
 
-                Method method = new ExceptionHandlerMethodResolver(AccountExceptionHandler.class).resolveMethod(exception);
-                return new ServletInvocableHandlerMethod(new AccountExceptionHandler(), method);
+                Method method = new ExceptionHandlerMethodResolver(AccountExceptionsHandler.class).resolveMethod(exception);
+                return new ServletInvocableHandlerMethod(new AccountExceptionsHandler(), method);
             }
         };
         resolver.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -85,7 +85,7 @@ public class AccountControllerTest {
 
         String id = "Gimli*1980";
         String exMsg = "Account ID: " + id + " already exists";
-        when(factory.create(id)).thenThrow(new AccountVerificationException(exMsg));
+        when(factory.create(id)).thenThrow(new AccountRegistrationException(exMsg));
 
         RequestBuilder req = post(URI.create("/account")).contentType(MediaType.APPLICATION_JSON).content(toJson(new AccountId(id)));
 
@@ -119,7 +119,7 @@ public class AccountControllerTest {
 
         RequestBuilder req = post(URI.create("/account")).contentType(MediaType.APPLICATION_JSON).content(toJson(new AccountId(id)));
 
-        String exMsg = String.format("[accountId = %s, may not be empty]", id);
+        String exMsg = String.format("[accountId = \"%s\", may not be empty]", id);
         mockMvc.perform(req)
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

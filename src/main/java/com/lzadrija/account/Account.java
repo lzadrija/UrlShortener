@@ -34,7 +34,7 @@ public class Account {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(id);
         return hash;
     }
 
@@ -43,13 +43,6 @@ public class Account {
         return (obj != null) && (getClass() == obj.getClass()) && Objects.equals(this.id, ((Account) obj).id);
     }
 
-    /**
-     * Returns a representation of this account. The exact details of the
-     * representation are subject to change, but the following may be regarded
-     * as typical: "Account: [Id = Bob!1986, Password = g4R68Th4]"
-     *
-     * @return representation of this account
-     */
     @Override
     public String toString() {
         return String.format("Account: [Id = %s Password = %s]", id, password);

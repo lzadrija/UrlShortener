@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice(basePackages = {"com.lzadrija.account"})
-public class AccountExceptionHandler {
+public class AccountExceptionsHandler {
 
     @ResponseBody
-    @ExceptionHandler(AccountVerificationException.class)
-    public ResponseEntity<AccountRegistration> accountVerificationExceptionHandler(AccountVerificationException ex) {
+    @ExceptionHandler(AccountRegistrationException.class)
+    public ResponseEntity<AccountRegistration> accountRegistrationExceptionHandler(AccountRegistrationException ex) {
 
         AccountRegistration body = new AccountRegistration(ex.getMessage(), false);
         return ResponseEntity.status(CONFLICT).contentType(MediaType.APPLICATION_JSON).body(body);
@@ -32,14 +32,14 @@ public class AccountExceptionHandler {
     private String createDescriptionsForInvalidFields(MethodArgumentNotValidException ex) {
 
         StringBuilder description = new StringBuilder();
-        ex.getBindingResult().getFieldErrors().stream().forEach((FieldError fieldError) -> {
+        ex.getBindingResult().getFieldErrors().forEach((FieldError fieldError) -> {
             description.append(createDescriptionForInvalidField(fieldError)).append(" ");
         });
         return description.toString().trim();
     }
 
     private String createDescriptionForInvalidField(FieldError e) {
-        return String.format("[%s = %s, %s]", e.getField(), e.getRejectedValue(), e.getDefaultMessage());
+        return String.format("[%s = \"%s\", %s]", e.getField(), e.getRejectedValue(), e.getDefaultMessage());
     }
 
 }
