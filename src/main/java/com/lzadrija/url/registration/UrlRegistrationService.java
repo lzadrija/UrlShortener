@@ -1,6 +1,5 @@
 package com.lzadrija.url.registration;
 
-import com.lzadrija.account.Account;
 import com.lzadrija.url.RedirectUrl;
 import com.lzadrija.url.UrlRepository;
 import com.lzadrija.url.registration.account.AccountRegisteredUrl;
@@ -37,24 +36,22 @@ public class UrlRegistrationService {
         this.service = service;
     }
 
-    public RedirectUrl register(UrlRegistrationData registrationData) {
+    public RedirectUrl register(String accountId, UrlRegistrationData registrationData) {
 
-        Account account = new Account("Gimli", "1LoG2KFu");
-
-        validateInput(account, registrationData.getUrl());
+        validateInput(accountId, registrationData.getUrl());
 
         RedirectUrl redirectUrl = createRedirectUrl(registrationData);
-        registerUrlForAccount(account, redirectUrl);
+        registerUrlForAccount(accountId, redirectUrl);
 
         return redirectUrl;
     }
 
-    private void validateInput(Account account, String longUrl) {
+    private void validateInput(String accountId, String longUrl) {
 
-        AccountRegisteredUrlId accUrlId = new AccountRegisteredUrlId(account.getId(), longUrl);
+        AccountRegisteredUrlId accUrlId = new AccountRegisteredUrlId(accountId, longUrl);
 
         if (accUrlRepo.findOne(accUrlId) != null) {
-            logger.error("Unable to register URL:" + longUrl + ", because it is a short URL already registered by account ID:" + account.getId());
+            logger.error("Unable to register URL:" + longUrl + ", because it is a short URL already registered by account ID:" + accountId);
             throw new UrlRegistrationException(MessageFormat.format(env.getRequiredProperty("long.url.equals.registered.short.url"), longUrl));
         }
     }
@@ -67,8 +64,8 @@ public class UrlRegistrationService {
         return urlRepo.save(redirectUrl);
     }
 
-    private void registerUrlForAccount(Account account, RedirectUrl redirectUrl) {
-        AccountRegisteredUrl accountUrl = new AccountRegisteredUrl(account.getId(), redirectUrl.getShortened());
+    private void registerUrlForAccount(String accountId, RedirectUrl redirectUrl) {
+        AccountRegisteredUrl accountUrl = new AccountRegisteredUrl(accountId, redirectUrl.getShortened());
         logger.debug("Created Account registered URL: " + accountUrl);
         accUrlRepo.save(accountUrl);
     }

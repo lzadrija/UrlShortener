@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +38,9 @@ public class UrlController {
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortUrlResource> register(@Valid @RequestBody UrlRegistrationData input, HttpServletRequest request) {
 
-        RedirectUrl redirectUrl = urlRegService.register(input);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        RedirectUrl redirectUrl = urlRegService.register(auth.getName(), input);
         String shortUrlReference = createShortUrlReference(redirectUrl, request);
 
         return ResponseEntity
