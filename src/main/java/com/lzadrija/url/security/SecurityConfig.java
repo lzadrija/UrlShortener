@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.httpBasic()
+        http.httpBasic().authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/url-shortener/register").hasRole("USER")
                 .and().csrf().disable();

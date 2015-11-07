@@ -1,10 +1,12 @@
 package com.lzadrija.url.registration;
 
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 public class UrlRegistrationData {
 
+    @NotNull
     @URL
     private String url;
     @Range(min = 301, max = 302, message = "Redirect type must be set to one of these two HTTP statuses: MOVED_PERMANENTLY(301) or FOUND(302)")

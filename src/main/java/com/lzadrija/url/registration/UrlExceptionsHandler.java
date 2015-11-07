@@ -1,6 +1,7 @@
-package com.lzadrija.account.registration;
+package com.lzadrija.url.registration;
 
-import com.lzadrija.account.AccountController;
+import com.lzadrija.ResultDescription;
+import com.lzadrija.url.UrlController;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import static org.springframework.http.HttpStatus.CONFLICT;
@@ -10,15 +11,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@ControllerAdvice(assignableTypes = {AccountController.class}, basePackages = {"com.lzadrija.account"})
+@ControllerAdvice(assignableTypes = {UrlController.class}, basePackages = {"com.lzadrija.url"})
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class AccountExceptionsHandler {
+public class UrlExceptionsHandler {
 
     @ResponseBody
-    @ExceptionHandler(AccountRegistrationException.class)
-    public ResponseEntity<AccountRegistration> accountRegistrationExceptionHandler(AccountRegistrationException ex) {
+    @ExceptionHandler(UrlRegistrationException.class)
+    public ResponseEntity<ResultDescription> accountRegistrationExceptionHandler(UrlRegistrationException ex) {
 
-        AccountRegistration body = new AccountRegistration(ex.getMessage(), false);
+        ResultDescription body = new ResultDescription(ex.getMessage(), false);
         return ResponseEntity.status(CONFLICT).contentType(APPLICATION_JSON).body(body);
     }
 

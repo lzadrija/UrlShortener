@@ -6,8 +6,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import static org.springframework.http.HttpStatus.CREATED;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
-@PropertySource("classpath:Messages.properties")
 public class AccountController {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
-    private final Environment env;
     private final AccountFactory factory;
 
     @Autowired
-    public AccountController(Environment env, AccountFactory factory) {
-        this.env = env;
+    public AccountController(AccountFactory factory) {
         this.factory = factory;
     }
 
@@ -47,7 +42,7 @@ public class AccountController {
     }
 
     private AccountRegistration createRegistrationResponse(Account account) {
-        return AccountRegistration.create(env.getRequiredProperty("account.opened"), true, account);
+        return AccountRegistration.create("Your account is opened", true, account);
     }
 
 }

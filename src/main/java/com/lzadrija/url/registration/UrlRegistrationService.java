@@ -3,70 +3,61 @@ package com.lzadrija.url.registration;
 import com.lzadrija.url.RedirectUrl;
 import com.lzadrija.url.UrlRepository;
 import com.lzadrija.url.registration.account.AccountRegisteredUrl;
-import com.lzadrija.url.registration.account.AccountRegisteredUrlId;
 import com.lzadrija.url.registration.account.AccountUrlRepository;
 import com.lzadrija.url.shortening.UrlShorteningService;
-import java.text.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@PropertySource("classpath:Messages.properties")
 public class UrlRegistrationService {
 
     private static final Logger logger = LoggerFactory.getLogger(UrlRegistrationService.class);
 
-    private final Environment env;
+    private final UrlRegistrationValidator validator;
     private final UrlShorteningService service;
-
     private final UrlRepository urlRepo;
     private final AccountUrlRepository accUrlRepo;
 
     @Autowired
-    public UrlRegistrationService(Environment env, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, UrlShorteningService service) {
-        this.env = env;
+    public UrlRegistrationService(UrlShorteningService service, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, UrlRegistrationValidator validator) {
+        this.service = service;
         this.urlRepo = urlRepo;
         this.accUrlRepo = accUrlRepo;
-        this.service = service;
+        this.validator = validator;
     }
 
-    public RedirectUrl register(String accountId, UrlRegistrationData registrationData) {
+    public RedirectUrl register(String accountId, UrlRegistrationData data) {
 
-        validateInput(accountId, registrationData.getUrl());
+        verifyUrl(data.getUrl());
 
-        RedirectUrl redirectUrl = createRedirectUrl(registrationData);
+        RedirectUrl redirectUrl = createRedirectUrl(data);
         registerUrlForAccount(accountId, redirectUrl);
 
+        logger.debug("Created Redirect URL: {}", redirectUrl);
         return redirectUrl;
     }
 
-    private void validateInput(String accountId, String longUrl) {
+    private void verifyUrl(String url) {
 
-        AccountRegisteredUrlId accUrlId = new AccountRegisteredUrlId(accountId, longUrl);
-
-        if (accUrlRepo.findOne(accUrlId) != null) {
-            logger.error("Unable to register URL:" + longUrl + ", because it is a short URL already registered by account ID:" + accountId);
-            throw new UrlRegistrationException(MessageFormat.format(env.getRequiredProperty("long.url.equals.registered.short.url"), longUrl));
+        if (!validator.isValid(url)) {
+            logger.error("Unable to register URL: \"" + url + "\", it is an already registered short URL");
+            throw new UrlRegistrationException("URL: \"" + url + "\" is an already registered short URL");
         }
     }
 
-    private RedirectUrl createRedirectUrl(UrlRegistrationData input) {
+    private RedirectUrl createRedirectUrl(UrlRegistrationData data) {
 
         String shortUrl = service.createShortUrl();
-        RedirectUrl redirectUrl = new RedirectUrl(shortUrl, input.getUrl(), input.getRedirectType());
-        logger.debug("Created redirect URL: " + redirectUrl);
+        RedirectUrl redirectUrl = new RedirectUrl(shortUrl, data.getUrl(), data.getRedirectType());
         return urlRepo.save(redirectUrl);
     }
 
     private void registerUrlForAccount(String accountId, RedirectUrl redirectUrl) {
         AccountRegisteredUrl accountUrl = new AccountRegisteredUrl(accountId, redirectUrl.getShortened());
-        logger.debug("Created Account registered URL: " + accountUrl);
         accUrlRepo.save(accountUrl);
     }
 }

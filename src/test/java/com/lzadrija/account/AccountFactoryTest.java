@@ -11,7 +11,6 @@ import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -24,8 +23,6 @@ public class AccountFactoryTest {
     private static final String ALPHANUMERIC_REGEX = "^[a-zA-Z0-9]*$";
 
     @Mock
-    private Environment env;
-    @Mock
     private AccountRepository repo;
     @InjectMocks
     private AccountFactory factory;
@@ -33,7 +30,7 @@ public class AccountFactoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        factory = new AccountFactory(repo, env);
+        factory = new AccountFactory(repo);
     }
 
     @Test
@@ -56,7 +53,6 @@ public class AccountFactoryTest {
 
         String id = "Eorl$1988";
         when(repo.findOne(id)).thenReturn(new Account(id, null));
-        when(env.getRequiredProperty("accountId.already.exists")).thenReturn("Account ID: " + id + " already exists");
 
         factory.create(id);
     }

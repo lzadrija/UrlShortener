@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lzadrija.MainConfiguration;
+import com.lzadrija.GlobalExceptionHandler;
 import com.lzadrija.account.registration.AccountExceptionsHandler;
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
 import com.lzadrija.account.registration.AccountRegistrationException;
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -44,8 +45,6 @@ public class AccountControllerTest {
     private ObjectMapper jsonMapper;
 
     @Mock
-    private Environment env;
-    @Mock
     private AccountFactory factory;
     @InjectMocks
     private AccountController controller;
@@ -60,19 +59,26 @@ public class AccountControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter())
-                .setHandlerExceptionResolvers(createExceptionResolver(), new ResponseStatusExceptionResolver())
+                .setHandlerExceptionResolvers(createExceptionResolvers(new AccountExceptionsHandler(), new GlobalExceptionHandler()),
+                                              new ResponseStatusExceptionResolver())
                 .build();
     }
 
-    private ExceptionHandlerExceptionResolver createExceptionResolver() {
+    private ExceptionHandlerExceptionResolver createExceptionResolvers(Object... handlers) {
 
         ExceptionHandlerExceptionResolver resolver = new ExceptionHandlerExceptionResolver() {
 
             @Override
-            protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
+            protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception ex) {
 
-                Method method = new ExceptionHandlerMethodResolver(AccountExceptionsHandler.class).resolveMethod(exception);
-                return new ServletInvocableHandlerMethod(new AccountExceptionsHandler(), method);
+                Object handler = Arrays.asList(handlers).stream()
+                        .filter(h -> getMethodResolver(h, ex) != null)
+                        .findAny().get();
+                return new ServletInvocableHandlerMethod(handler, getMethodResolver(handler, ex));
+            }
+
+            private Method getMethodResolver(Object handler, Exception exception) {
+                return new ExceptionHandlerMethodResolver(handler.getClass()).resolveMethod(exception);
             }
         };
         resolver.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -100,15 +106,13 @@ public class AccountControllerTest {
     public void whenGivenValidIdCreateAccount() throws Exception {
 
         Account a = new Account("Hodor(1936", "s4tbG685");
-        String msg = "Your account is opened";
         when(factory.create(a.getId())).thenReturn(a);
-        when(env.getRequiredProperty("account.opened")).thenReturn(msg);
 
         RequestBuilder req = post(URI.create("/account")).contentType(MediaType.APPLICATION_JSON).content(toJson(new AccountId(a.getId())));
         mockMvc.perform(req)
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(toJson(AccountRegistration.create(msg, true, a))))
+                .andExpect(content().string(toJson(AccountRegistration.create("Your account is opened", true, a))))
                 .andDo(print());
     }
 

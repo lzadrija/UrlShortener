@@ -1,4 +1,6 @@
-package com.lzadrija.url.registration;
+package com.lzadrija.url;
+
+import com.lzadrija.url.RedirectUrl;
 
 public class ShortUrlResource {
 
@@ -7,8 +9,13 @@ public class ShortUrlResource {
     public ShortUrlResource() {
     }
 
-    public ShortUrlResource(String shortUrl) {
+    private ShortUrlResource(String shortUrl) {
         this.shortUrl = shortUrl;
+    }
+
+    public static ShortUrlResource create(RedirectUrl redirectUrl, String address) {
+        String shortUrlAddress = address + redirectUrl.getShortened();
+        return new ShortUrlResource(shortUrlAddress);
     }
 
     public void setShortUrl(String shortUrl) {
@@ -22,7 +29,7 @@ public class ShortUrlResource {
     @Override
     public String toString() {
         return "ShortUrlResource{"
-                + "shortUrl=" + shortUrl + '}';
+               + "shortUrl=" + shortUrl + '}';
     }
 
 }
