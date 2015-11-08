@@ -3,8 +3,6 @@ package com.lzadrija.account;
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
 import javax.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
 import org.springframework.http.MediaType;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class AccountController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
-
     private final AccountFactory factory;
 
     @Autowired
@@ -33,7 +29,6 @@ public class AccountController {
     public ResponseEntity<AccountRegistration> createAccount(@Valid @RequestBody AccountId accId) {
 
         Account account = factory.create(accId.getAccountId());
-        logger.debug("Opened account with id: {}", account.getId());
 
         return ResponseEntity
                 .status(CREATED)

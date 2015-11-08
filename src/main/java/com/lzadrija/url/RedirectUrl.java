@@ -1,15 +1,17 @@
 package com.lzadrija.url;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.http.HttpStatus;
 import static org.springframework.http.HttpStatus.FOUND;
 
 @Entity
 @Table(name = "redirect_url")
-public class RedirectUrl {
+public class RedirectUrl implements Serializable {
 
     @Id
     private String shortened;
@@ -42,6 +44,10 @@ public class RedirectUrl {
         this.longUrl = longUrl;
     }
 
+    public HttpStatus getRedirectHttpStatus() {
+        return HttpStatus.valueOf(redirectType);
+    }
+
     public Integer getRedirectType() {
         return redirectType;
     }
@@ -60,7 +66,7 @@ public class RedirectUrl {
     @Override
     public boolean equals(Object obj) {
         return (obj != null) && (getClass() == obj.getClass())
-                && Objects.equals(this.shortened, ((RedirectUrl) obj).shortened);
+               && Objects.equals(this.shortened, ((RedirectUrl) obj).shortened);
     }
 
     @Override

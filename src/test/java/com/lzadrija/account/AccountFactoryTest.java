@@ -1,7 +1,7 @@
 package com.lzadrija.account;
 
 import com.lzadrija.MainConfiguration;
-import com.lzadrija.account.registration.AccountRegistrationException;
+import com.lzadrija.exception.RegistrationException;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,11 +48,11 @@ public class AccountFactoryTest {
         assertThat(a.getPassword()).matches(ALPHANUMERIC_REGEX);
     }
 
-    @Test(expected = AccountRegistrationException.class)
+    @Test(expected = RegistrationException.class)
     public void whenGivenExistingIdShouldFailToCreateAccount() {
 
         String id = "Eorl$1988";
-        when(repo.findOne(id)).thenReturn(new Account(id, null));
+        when(repo.exists(id)).thenReturn(true);
 
         factory.create(id);
     }

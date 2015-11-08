@@ -1,7 +1,5 @@
 package com.lzadrija.url;
 
-import com.lzadrija.url.RedirectUrl;
-
 public class ShortUrlResource {
 
     private String shortUrl;

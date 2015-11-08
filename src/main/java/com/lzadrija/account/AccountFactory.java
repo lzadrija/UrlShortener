@@ -1,6 +1,6 @@
 package com.lzadrija.account;
 
-import com.lzadrija.account.registration.AccountRegistrationException;
+import com.lzadrija.exception.RegistrationException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +27,17 @@ public class AccountFactory {
         verifyIdExistence(id);
 
         String password = generatePassword();
-        return repo.save(new Account(id, password));
+        Account account = repo.save(new Account(id, password));
+
+        logger.debug("Account with ID: {} created", account.getId());
+        return account;
     }
 
     private void verifyIdExistence(String id) {
 
-        if (repo.findOne(id) != null) {
+        if (repo.exists(id)) {
             logger.error("Account ID: " + id + " already exists");
-            throw new AccountRegistrationException("Account ID: " + id + " already exists");
+            throw new RegistrationException("Account ID: " + id + " already exists");
         }
     }
 

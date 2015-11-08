@@ -1,5 +1,6 @@
 package com.lzadrija.url.registration;
 
+import com.lzadrija.exception.RegistrationException;
 import com.lzadrija.url.RedirectUrl;
 import com.lzadrija.url.UrlRepository;
 import com.lzadrija.url.registration.account.AccountRegisteredUrl;
@@ -17,13 +18,13 @@ public class UrlRegistrationService {
 
     private static final Logger logger = LoggerFactory.getLogger(UrlRegistrationService.class);
 
-    private final UrlRegistrationValidator validator;
+    private final ShortUrlRegistrationValidator validator;
     private final UrlShorteningService service;
     private final UrlRepository urlRepo;
     private final AccountUrlRepository accUrlRepo;
 
     @Autowired
-    public UrlRegistrationService(UrlShorteningService service, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, UrlRegistrationValidator validator) {
+    public UrlRegistrationService(UrlShorteningService service, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, ShortUrlRegistrationValidator validator) {
         this.service = service;
         this.urlRepo = urlRepo;
         this.accUrlRepo = accUrlRepo;
@@ -43,9 +44,9 @@ public class UrlRegistrationService {
 
     private void verifyUrl(String url) {
 
-        if (!validator.isValid(url)) {
+        if (validator.isRegisteredShortUrlWithDomain(url)) {
             logger.error("Unable to register URL: \"" + url + "\", it is an already registered short URL");
-            throw new UrlRegistrationException("URL: \"" + url + "\" is an already registered short URL");
+            throw new RegistrationException("URL: \"" + url + "\" is an already registered short URL");
         }
     }
 

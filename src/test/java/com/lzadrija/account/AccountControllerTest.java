@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lzadrija.MainConfiguration;
-import com.lzadrija.GlobalExceptionHandler;
-import com.lzadrija.account.registration.AccountExceptionsHandler;
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
-import com.lzadrija.account.registration.AccountRegistrationException;
+import com.lzadrija.exception.GlobalExceptionHandler;
+import com.lzadrija.exception.RegistrationException;
 import java.lang.reflect.Method;
 import java.net.URI;
-import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,26 +57,20 @@ public class AccountControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter())
-                .setHandlerExceptionResolvers(createExceptionResolvers(new AccountExceptionsHandler(), new GlobalExceptionHandler()),
+                .setHandlerExceptionResolvers(createExceptionResolver(new GlobalExceptionHandler()),
                                               new ResponseStatusExceptionResolver())
                 .build();
     }
 
-    private ExceptionHandlerExceptionResolver createExceptionResolvers(Object... handlers) {
+    private ExceptionHandlerExceptionResolver createExceptionResolver(Object handler) {
 
         ExceptionHandlerExceptionResolver resolver = new ExceptionHandlerExceptionResolver() {
 
             @Override
             protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception ex) {
 
-                Object handler = Arrays.asList(handlers).stream()
-                        .filter(h -> getMethodResolver(h, ex) != null)
-                        .findAny().get();
-                return new ServletInvocableHandlerMethod(handler, getMethodResolver(handler, ex));
-            }
-
-            private Method getMethodResolver(Object handler, Exception exception) {
-                return new ExceptionHandlerMethodResolver(handler.getClass()).resolveMethod(exception);
+                Method m = new ExceptionHandlerMethodResolver(handler.getClass()).resolveMethod(ex);
+                return new ServletInvocableHandlerMethod(handler, m);
             }
         };
         resolver.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -91,7 +83,7 @@ public class AccountControllerTest {
 
         String id = "Gimli*1980";
         String exMsg = "Account ID: " + id + " already exists";
-        when(factory.create(id)).thenThrow(new AccountRegistrationException(exMsg));
+        when(factory.create(id)).thenThrow(new RegistrationException(exMsg));
 
         RequestBuilder req = post(URI.create("/account")).contentType(MediaType.APPLICATION_JSON).content(toJson(new AccountId(id)));
 
