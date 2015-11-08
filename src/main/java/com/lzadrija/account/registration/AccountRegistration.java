@@ -22,8 +22,8 @@ public class AccountRegistration extends ResultDescription {
         this.password = password;
     }
 
-    public static AccountRegistration create(String description, boolean success, Account account) {
-        return new AccountRegistration(description, success, account.getPassword());
+    public static AccountRegistration create(Account account) {
+        return new AccountRegistration("Your account is opened", true, account.getPassword());
     }
 
     public String getPassword() {

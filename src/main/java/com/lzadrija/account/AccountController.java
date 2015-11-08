@@ -2,14 +2,19 @@ package com.lzadrija.account;
 
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
+import com.lzadrija.accounturl.AccountRegisteredUrls;
+import com.lzadrija.accounturl.AccountUrlStatistic;
 import javax.validation.Valid;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
-import org.springframework.http.MediaType;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,26 +23,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountFactory factory;
+    private final AccountRegisteredUrls registeredUrls;
 
     @Autowired
-    public AccountController(AccountFactory factory) {
+    public AccountController(AccountFactory factory, AccountRegisteredUrls registeredUrls) {
         this.factory = factory;
+        this.registeredUrls = registeredUrls;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/account", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/account", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountRegistration> createAccount(@Valid @RequestBody AccountId accId) {
 
         Account account = factory.create(accId.getAccountId());
+        AccountRegistration accountRegistration = AccountRegistration.create(account);
 
         return ResponseEntity
                 .status(CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(createRegistrationResponse(account));
+                .body(accountRegistration);
     }
 
-    private AccountRegistration createRegistrationResponse(Account account) {
-        return AccountRegistration.create("Your account is opened", true, account);
+    @ResponseBody
+    @RequestMapping(value = "/statistic/{AccountId}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<AccountUrlStatistic> register(@NotBlank @PathVariable String accountId) {
+
+        AccountUrlStatistic statistic = registeredUrls.getStatisticForAccount(accountId);
+        return ResponseEntity.ok(statistic);
     }
 
 }

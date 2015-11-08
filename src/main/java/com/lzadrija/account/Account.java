@@ -15,7 +15,7 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    private Account() {
+    public Account() {
     }
 
     public Account(String id, String password) {

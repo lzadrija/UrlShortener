@@ -12,16 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ShortUrlHitsService {
+public class UrlHitsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShortUrlHitsService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UrlHitsService.class);
 
     private final ShortUrlRegistrationValidator validator;
     private final UrlRepository urlRepo;
-    private final ShortUrlHitsRepository hitsRepo;
+    private final UrlHitsRepository hitsRepo;
 
     @Autowired
-    public ShortUrlHitsService(ShortUrlRegistrationValidator validator, UrlRepository urlRepo, ShortUrlHitsRepository hitsRepo) {
+    public UrlHitsService(ShortUrlRegistrationValidator validator, UrlRepository urlRepo, UrlHitsRepository hitsRepo) {
         this.validator = validator;
         this.urlRepo = urlRepo;
         this.hitsRepo = hitsRepo;
@@ -32,15 +32,24 @@ public class ShortUrlHitsService {
         verifyUrl(shortUrl);
 
         RedirectUrl redirectUrl = urlRepo.findOne(shortUrl);
-        hitsRepo.save(ShortUrlHit.create(redirectUrl));
+        hitsRepo.save(UrlHit.create(redirectUrl));
 
         return redirectUrl;
+    }
+
+    public UrlHitCount getHitsCount(String shortUrl) {
+
+        verifyUrl(shortUrl);
+
+        RedirectUrl redirectUrl = urlRepo.findOne(shortUrl);
+        Long count = hitsRepo.countByRedirectUrl(redirectUrl);
+        return new UrlHitCount(redirectUrl, count);
     }
 
     private void verifyUrl(String shortUrl) {
 
         if (!validator.isRegisteredShortUrl(shortUrl)) {
-            logger.error("Unable to recognize URL: \"" + shortUrl + "\", as a registered short URL");
+            logger.error("Unable to recognize URL: \"{}\", as a registered short URL", shortUrl);
             throw new ResourceNotFoundException("URL: \"" + shortUrl + "\" is not a registered short URL");
         }
     }

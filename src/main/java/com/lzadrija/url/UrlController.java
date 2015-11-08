@@ -3,21 +3,20 @@ package com.lzadrija.url;
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.registration.UrlRegistrationService;
 import com.lzadrija.url.shortening.ServerAddressFactory;
-import com.lzadrija.url.statistics.ShortUrlHitsService;
+import com.lzadrija.url.statistics.UrlHitsService;
 import java.io.IOException;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
-import org.springframework.http.MediaType;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,17 +28,17 @@ public class UrlController {
 
     private final UrlRegistrationService urlRegService;
     private final ServerAddressFactory serverAddressFactory;
-    private final ShortUrlHitsService hitsService;
+    private final UrlHitsService hitsService;
 
     @Autowired
-    public UrlController(UrlRegistrationService urlRegService, ServerAddressFactory serverAddressFactory, ShortUrlHitsService hitsService) {
+    public UrlController(UrlRegistrationService urlRegService, ServerAddressFactory serverAddressFactory, UrlHitsService hitsService) {
         this.urlRegService = urlRegService;
         this.serverAddressFactory = serverAddressFactory;
         this.hitsService = hitsService;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/register", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortUrlResource> register(@Valid @RequestBody UrlRegistrationData data, Principal principal, HttpServletRequest request) {
 
         RedirectUrl redirectUrl = urlRegService.register(principal.getName(), data);
@@ -47,12 +46,11 @@ public class UrlController {
 
         return ResponseEntity
                 .status(CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
                 .body(ShortUrlResource.create(redirectUrl, address));
     }
 
     @RequestMapping(value = "/{shortUrl}")
-    public ModelAndView redirectUsingShortUrl(@NotBlank @PathVariable String shortUrl, HttpServletResponse response) throws IOException {
+    public ModelAndView redirectUsingShortUrl(@PathVariable String shortUrl, HttpServletResponse response) throws IOException {
 
         RedirectUrl redirectUrl = hitsService.record(shortUrl);
 

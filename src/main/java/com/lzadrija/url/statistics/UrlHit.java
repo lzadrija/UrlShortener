@@ -7,33 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "short_url_hit")
-public class ShortUrlHit {
+@Table(name = "url_hit")
+public class UrlHit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false)
-    private String shortUrl;
+    @OneToOne
+    private RedirectUrl redirectUrl;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date hitTime;
 
-    public ShortUrlHit() {
+    public UrlHit() {
     }
 
-    public ShortUrlHit(String shortUrl, Date hitTime) {
-        this.shortUrl = shortUrl;
+    public UrlHit(RedirectUrl redirectUrl, Date hitTime) {
+        this.redirectUrl = redirectUrl;
         this.hitTime = hitTime;
     }
 
-    static ShortUrlHit create(RedirectUrl redirectUrl) {
-        return new ShortUrlHit(redirectUrl.getShortened(), new Date());
+    static UrlHit create(RedirectUrl redirectUrl) {
+        return new UrlHit(redirectUrl, new Date());
     }
 
     public Long getId() {
@@ -44,12 +45,12 @@ public class ShortUrlHit {
         this.id = id;
     }
 
-    public String getShortUrl() {
-        return shortUrl;
+    public RedirectUrl getRedirectUrl() {
+        return redirectUrl;
     }
 
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
+    public void setRedirectUrl(RedirectUrl redirectUrl) {
+        this.redirectUrl = redirectUrl;
     }
 
     public Date getHitTime() {
@@ -62,7 +63,7 @@ public class ShortUrlHit {
 
     @Override
     public String toString() {
-        return String.format("ShortUrlHits: [Short URL = %s, hit time = %s]", shortUrl, hitTime);
+        return String.format("ShortUrlHits: [Redirect URL = %s, hit time = %s]", redirectUrl, hitTime);
     }
 
 }

@@ -104,7 +104,7 @@ public class AccountControllerTest {
         mockMvc.perform(req)
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(toJson(AccountRegistration.create("Your account is opened", true, a))))
+                .andExpect(content().string(toJson(AccountRegistration.create(a))))
                 .andDo(print());
     }
 

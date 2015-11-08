@@ -1,4 +1,4 @@
-package com.lzadrija.url.registration.account;
+package com.lzadrija.accounturl;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -1,4 +1,4 @@
-package com.lzadrija.url.security;
+package com.lzadrija.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

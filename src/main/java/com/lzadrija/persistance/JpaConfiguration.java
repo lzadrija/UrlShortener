@@ -26,10 +26,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:JpaConfiguration.properties")
-@EnableJpaRepositories(basePackages = {"com.lzadrija.account", "com.lzadrija.url"})
+@EnableJpaRepositories(basePackages = {"com.lzadrija.account", "com.lzadrija.url", "com.lzadrija.accounturl"})
 public class JpaConfiguration {
 
-    private static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = new String[]{"com.lzadrija.account", "com.lzadrija.url"};
+    private static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = new String[]{"com.lzadrija.account", "com.lzadrija.url", "com.lzadrija.accounturl"};
 
     @Autowired
     private Environment env;

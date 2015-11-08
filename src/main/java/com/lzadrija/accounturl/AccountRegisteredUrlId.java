@@ -1,4 +1,4 @@
-package com.lzadrija.url.registration.account;
+package com.lzadrija.accounturl;
 
 import java.io.Serializable;
 import java.util.Objects;

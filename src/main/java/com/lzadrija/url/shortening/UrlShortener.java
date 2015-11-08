@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UrlShorteningService {
+public class UrlShortener {
 
     private final ShortUrlSymbols symbols = ShortUrlSymbols.generate();
     private final UrlRepository repo;
 
     @Autowired
-    public UrlShorteningService(UrlRepository repo) {
+    public UrlShortener(UrlRepository repo) {
         this.repo = repo;
     }
 

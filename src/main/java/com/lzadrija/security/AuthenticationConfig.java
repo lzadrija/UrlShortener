@@ -1,4 +1,4 @@
-package com.lzadrija.url.security;
+package com.lzadrija.security;
 
 import com.lzadrija.account.Account;
 import com.lzadrija.account.AccountRepository;
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -26,10 +26,9 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
     @Bean
     public UserDetailsService userDetailsService() {
         return (accountId) -> {
-            Account a = accountRepository.findOne(accountId);
-            if (a != null) {
-                return new User(a.getId(), a.getPassword(), true, true, true, true,
-                                AuthorityUtils.createAuthorityList("USER"));
+            if (accountRepository.exists(accountId)) {
+                Account a = accountRepository.getOne(accountId);
+                return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList("USER"));
             }
             throw new UsernameNotFoundException("Could not find the account with account ID: \"" + accountId + "\"");
         };

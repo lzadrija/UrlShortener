@@ -3,9 +3,9 @@ package com.lzadrija.url.registration;
 import com.lzadrija.exception.RegistrationException;
 import com.lzadrija.url.RedirectUrl;
 import com.lzadrija.url.UrlRepository;
-import com.lzadrija.url.registration.account.AccountRegisteredUrl;
-import com.lzadrija.url.registration.account.AccountUrlRepository;
-import com.lzadrija.url.shortening.UrlShorteningService;
+import com.lzadrija.accounturl.AccountRegisteredUrl;
+import com.lzadrija.accounturl.AccountUrlRepository;
+import com.lzadrija.url.shortening.UrlShortener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ public class UrlRegistrationService {
     private static final Logger logger = LoggerFactory.getLogger(UrlRegistrationService.class);
 
     private final ShortUrlRegistrationValidator validator;
-    private final UrlShorteningService service;
+    private final UrlShortener shortener;
     private final UrlRepository urlRepo;
     private final AccountUrlRepository accUrlRepo;
 
     @Autowired
-    public UrlRegistrationService(UrlShorteningService service, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, ShortUrlRegistrationValidator validator) {
-        this.service = service;
+    public UrlRegistrationService(UrlShortener shortener, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, ShortUrlRegistrationValidator validator) {
+        this.shortener = shortener;
         this.urlRepo = urlRepo;
         this.accUrlRepo = accUrlRepo;
         this.validator = validator;
@@ -45,14 +45,14 @@ public class UrlRegistrationService {
     private void verifyUrl(String url) {
 
         if (validator.isRegisteredShortUrlWithDomain(url)) {
-            logger.error("Unable to register URL: \"" + url + "\", it is an already registered short URL");
+            logger.error("Unable to register URL: \"{}\", it is an already registered short URL", url);
             throw new RegistrationException("URL: \"" + url + "\" is an already registered short URL");
         }
     }
 
     private RedirectUrl createRedirectUrl(UrlRegistrationData data) {
 
-        String shortUrl = service.createShortUrl();
+        String shortUrl = shortener.createShortUrl();
         RedirectUrl redirectUrl = new RedirectUrl(shortUrl, data.getUrl(), data.getRedirectType());
         return urlRepo.save(redirectUrl);
     }

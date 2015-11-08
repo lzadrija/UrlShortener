@@ -36,7 +36,7 @@ public class AccountFactory {
     private void verifyIdExistence(String id) {
 
         if (repo.exists(id)) {
-            logger.error("Account ID: " + id + " already exists");
+            logger.error("Account ID: \"{}\" already exists", id);
             throw new RegistrationException("Account ID: " + id + " already exists");
         }
     }
