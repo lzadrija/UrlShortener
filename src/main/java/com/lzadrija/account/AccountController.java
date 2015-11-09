@@ -2,7 +2,6 @@ package com.lzadrija.account;
 
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
-import com.lzadrija.accounturl.AccountRegisteredUrlService;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
 package com.lzadrija.url.registration;
 
-import com.lzadrija.accounturl.AccountRegisteredUrlService;
+import com.lzadrija.account.Account;
+import com.lzadrija.account.AccountRepository;
 import com.lzadrija.exception.RegistrationException;
 import com.lzadrija.url.RedirectUrl;
 import com.lzadrija.url.UrlRepository;
@@ -19,14 +20,14 @@ public class UrlRegistrationService {
 
     private final ShortUrlRegistrationValidator validator;
     private final UrlShortener shortener;
-    private final AccountRegisteredUrlService accUrls;
+    private final AccountRepository accountRepo;
     private final UrlRepository urlRepo;
 
     @Autowired
-    public UrlRegistrationService(UrlShortener shortener, UrlRepository urlRepo, AccountRegisteredUrlService accUrls, ShortUrlRegistrationValidator validator) {
+    public UrlRegistrationService(UrlShortener shortener, UrlRepository urlRepo, AccountRepository accountRepo, ShortUrlRegistrationValidator validator) {
         this.shortener = shortener;
         this.urlRepo = urlRepo;
-        this.accUrls = accUrls;
+        this.accountRepo = accountRepo;
         this.validator = validator;
     }
 
@@ -34,8 +35,8 @@ public class UrlRegistrationService {
 
         verifyUrl(data.getUrl());
 
-        RedirectUrl redirectUrl = createRedirectUrl(data);
-        accUrls.registerUrlForAccount(accountId, redirectUrl);
+        Account account = accountRepo.getOne(accountId);
+        RedirectUrl redirectUrl = createRedirectUrl(account, data);
 
         logger.debug("Created Redirect URL: {}", redirectUrl);
         return redirectUrl;
@@ -49,10 +50,10 @@ public class UrlRegistrationService {
         }
     }
 
-    private RedirectUrl createRedirectUrl(UrlRegistrationData data) {
+    private RedirectUrl createRedirectUrl(Account account, UrlRegistrationData data) {
 
         String shortUrl = shortener.createShortUrl();
-        RedirectUrl redirectUrl = new RedirectUrl(shortUrl, data.getUrl(), data.getRedirectType());
+        RedirectUrl redirectUrl = RedirectUrl.create(account, shortUrl, data);
         return urlRepo.save(redirectUrl);
     }
 

@@ -31,7 +31,7 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
         return (accountId) -> {
             Account a = accountRepository.findOne(accountId);
             if (a != null) {
-                return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList("USER"));
+                return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList("ROLE_USER"));
             }
             throw new UsernameNotFoundException("Could not find the account with account ID: \"" + accountId + "\"");
         };
