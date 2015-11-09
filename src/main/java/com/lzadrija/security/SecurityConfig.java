@@ -1,7 +1,6 @@
 package com.lzadrija.security;
 
 import org.springframework.context.annotation.Configuration;
-import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new ErroneousAuthenticationEntryPoint())
                 .and().authorizeRequests()
                 .antMatchers(POST, "/url-shortener/register").hasRole("USER")
-//                .antMatchers(GET, "/url-shortener/statistic").hasRole("USER")
+                //                .antMatchers(GET, "/url-shortener/statistic").hasRole("USER")
                 .and().csrf().disable();
     }
 

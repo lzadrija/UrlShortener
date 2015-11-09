@@ -2,10 +2,9 @@ package com.lzadrija.account;
 
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
-import com.lzadrija.accounturl.AccountRegisteredUrls;
-import com.lzadrija.accounturl.AccountUrlStatistic;
+import com.lzadrija.accounturl.AccountRegisteredUrlService;
+import java.util.Map;
 import javax.validation.Valid;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountFactory factory;
-    private final AccountRegisteredUrls registeredUrls;
+    private final AccountRegisteredUrlService registeredUrls;
 
     @Autowired
-    public AccountController(AccountFactory factory, AccountRegisteredUrls registeredUrls) {
+    public AccountController(AccountFactory factory, AccountRegisteredUrlService registeredUrls) {
         this.factory = factory;
         this.registeredUrls = registeredUrls;
     }
@@ -44,10 +43,10 @@ public class AccountController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/statistic/{AccountId}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountUrlStatistic> register(@NotBlank @PathVariable String accountId) {
+    @RequestMapping(value = "/statistic/{accountId}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Long>> register(@PathVariable("accountId") String accountId) {
 
-        AccountUrlStatistic statistic = registeredUrls.getStatisticForAccount(accountId);
+        Map<String, Long> statistic = registeredUrls.getStatisticForAccount(accountId);
         return ResponseEntity.ok(statistic);
     }
 

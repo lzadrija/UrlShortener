@@ -1,10 +1,9 @@
 package com.lzadrija.url.registration;
 
+import com.lzadrija.accounturl.AccountRegisteredUrlService;
 import com.lzadrija.exception.RegistrationException;
 import com.lzadrija.url.RedirectUrl;
 import com.lzadrija.url.UrlRepository;
-import com.lzadrija.accounturl.AccountRegisteredUrl;
-import com.lzadrija.accounturl.AccountUrlRepository;
 import com.lzadrija.url.shortening.UrlShortener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +19,14 @@ public class UrlRegistrationService {
 
     private final ShortUrlRegistrationValidator validator;
     private final UrlShortener shortener;
+    private final AccountRegisteredUrlService accUrls;
     private final UrlRepository urlRepo;
-    private final AccountUrlRepository accUrlRepo;
 
     @Autowired
-    public UrlRegistrationService(UrlShortener shortener, UrlRepository urlRepo, AccountUrlRepository accUrlRepo, ShortUrlRegistrationValidator validator) {
+    public UrlRegistrationService(UrlShortener shortener, UrlRepository urlRepo, AccountRegisteredUrlService accUrls, ShortUrlRegistrationValidator validator) {
         this.shortener = shortener;
         this.urlRepo = urlRepo;
-        this.accUrlRepo = accUrlRepo;
+        this.accUrls = accUrls;
         this.validator = validator;
     }
 
@@ -36,7 +35,7 @@ public class UrlRegistrationService {
         verifyUrl(data.getUrl());
 
         RedirectUrl redirectUrl = createRedirectUrl(data);
-        registerUrlForAccount(accountId, redirectUrl);
+        accUrls.registerUrlForAccount(accountId, redirectUrl);
 
         logger.debug("Created Redirect URL: {}", redirectUrl);
         return redirectUrl;
@@ -57,8 +56,4 @@ public class UrlRegistrationService {
         return urlRepo.save(redirectUrl);
     }
 
-    private void registerUrlForAccount(String accountId, RedirectUrl redirectUrl) {
-        AccountRegisteredUrl accountUrl = new AccountRegisteredUrl(accountId, redirectUrl.getShortened());
-        accUrlRepo.save(accountUrl);
-    }
 }
