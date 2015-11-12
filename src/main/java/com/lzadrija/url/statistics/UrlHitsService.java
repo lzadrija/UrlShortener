@@ -54,6 +54,7 @@ public class UrlHitsService {
     }
 
     private UrlHitCount getHitsCount(RedirectUrl redirectUrl) {
+
         Long count = hitsRepo.countByRedirectUrl(redirectUrl);
         return new UrlHitCount(redirectUrl, count);
     }

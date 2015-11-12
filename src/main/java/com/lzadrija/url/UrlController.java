@@ -1,8 +1,8 @@
 package com.lzadrija.url;
 
+import com.lzadrija.url.registration.ServerAddressFactory;
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.registration.UrlRegistrationService;
-import com.lzadrija.url.registration.ServerAddressFactory;
 import com.lzadrija.url.statistics.UrlHit;
 import com.lzadrija.url.statistics.UrlHitsService;
 import java.security.Principal;

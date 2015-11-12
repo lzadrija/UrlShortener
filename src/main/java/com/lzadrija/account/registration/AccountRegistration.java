@@ -7,6 +7,8 @@ import com.lzadrija.account.Account;
 
 public class AccountRegistration extends ResultDescription {
 
+    private static final String SUCCESS_REGISTRATION_MSG = "Your account is opened";
+
     @JsonInclude(Include.NON_NULL)
     private String password;
 
@@ -23,7 +25,7 @@ public class AccountRegistration extends ResultDescription {
     }
 
     public static AccountRegistration create(Account account) {
-        return new AccountRegistration("Your account is opened", true, account.getPassword());
+        return new AccountRegistration(SUCCESS_REGISTRATION_MSG, true, account.getPassword());
     }
 
     public String getPassword() {

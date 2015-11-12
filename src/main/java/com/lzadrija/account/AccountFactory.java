@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountFactory.class);
-    public static final int PASSWORD_LENGTH = 8;
+    private static final int PASSWORD_LENGTH = 8;
 
     private final AccountRepository repo;
 

@@ -1,6 +1,7 @@
 package com.lzadrija.url.statistics;
 
 import com.lzadrija.url.RedirectUrl;
+import java.util.Objects;
 
 public class UrlHitCount {
 
@@ -22,6 +23,21 @@ public class UrlHitCount {
 
     public Long getCount() {
         return count;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.redirectUrl);
+        hash = 17 * hash + Objects.hashCode(this.count);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null) && (getClass() == obj.getClass())
+               && Objects.equals(this.redirectUrl, ((UrlHitCount) obj).redirectUrl)
+               && Objects.equals(this.count, ((UrlHitCount) obj).count);
     }
 
     @Override

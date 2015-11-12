@@ -19,7 +19,7 @@ public class AccountRepositoryTest extends BaseTest {
     }
 
     @Test
-    public void shouldStoreGivenAccount() {
+    public void givenAccountShouldStoreIt() {
 
         Account acc = new Account("Bob?1986", "xC345Fc0");
 
@@ -29,7 +29,7 @@ public class AccountRepositoryTest extends BaseTest {
     }
 
     @Test
-    public void whenGivenIdShouldFindAccount() {
+    public void givenIdShouldFindAccount() {
 
         Account savedAcc = repo.saveAndFlush(new Account("Alice!1987", "b1Tr86yh"));
 

@@ -19,7 +19,7 @@ public class AccountFactoryTest extends BaseTest {
     private AccountFactory factory;
 
     @Test
-    public void whenGivenValidIdShouldCreateAccount() {
+    public void givenValidIdShouldCreateAccount() {
 
         String id = "Floyd%1956";
         when(repo.save(any(Account.class))).then(i -> i.getArgumentAt(0, Account.class));
@@ -34,7 +34,7 @@ public class AccountFactoryTest extends BaseTest {
     }
 
     @Test(expected = RegistrationException.class)
-    public void whenGivenExistingIdShouldFailToCreateAccount() {
+    public void givenExistingIdShouldFailToCreateAccount() {
 
         String id = "Eorl$1988";
         when(repo.exists(id)).thenReturn(true);

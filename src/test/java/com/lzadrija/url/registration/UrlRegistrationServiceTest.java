@@ -10,8 +10,8 @@ import com.lzadrija.url.shortening.UrlShortener;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import static org.mockito.Matchers.any;
+import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
 

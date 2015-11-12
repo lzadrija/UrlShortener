@@ -16,7 +16,7 @@ public class ServerAddressFactoryTest extends BaseTest {
     private ServerAddressFactory factory;
 
     @Test
-    public void whenGivenHttpRequestGetServerAddress() {
+    public void givenHttpRequestShouldGetServerAddress() {
 
         when(request.getServerName()).thenReturn("localhost");
         when(request.getServerPort()).thenReturn(8080);

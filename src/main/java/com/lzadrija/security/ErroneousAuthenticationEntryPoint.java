@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ErroneousAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+    private final ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex) throws IOException, ServletException {
 
@@ -25,7 +27,6 @@ public class ErroneousAuthenticationEntryPoint implements AuthenticationEntryPoi
     }
 
     private void createCustomAuthenticationErrorResponse(HttpServletResponse response, AuthenticationException ex) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), new ResultDescription(ex.getMessage(), false));
     }
 }

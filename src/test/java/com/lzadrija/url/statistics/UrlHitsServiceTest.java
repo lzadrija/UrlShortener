@@ -28,7 +28,7 @@ public class UrlHitsServiceTest extends BaseTest {
     private UrlHitsService service;
 
     @Test
-    public void whenGivenShortUrlShouldRecordHit() {
+    public void givenShortUrlShouldRecordHit() {
 
         String shortUrl = "0k0";
         RedirectUrl redirectUrl = RedirectUrl.create(new Account("Mithrandir3434", "415rf44g"), shortUrl,

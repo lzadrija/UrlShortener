@@ -2,6 +2,7 @@ package com.lzadrija.url.statistics;
 
 import com.lzadrija.url.RedirectUrl;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,6 +60,19 @@ public class UrlHit {
 
     public void setHitTime(Date hitTime) {
         this.hitTime = hitTime;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null) && (getClass() == obj.getClass())
+               && Objects.equals(this.id, ((UrlHit) obj).id);
     }
 
     @Override

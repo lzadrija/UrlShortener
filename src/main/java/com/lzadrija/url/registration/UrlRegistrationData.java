@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.URL;
 public class UrlRegistrationData {
 
     @NotNull
-    @URL
+    @URL(regexp = "^(http|https|ftp)\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~])*$")
     private String url;
     @Range(min = 301, max = 302, message = "Redirect type must be set to one of these two HTTP statuses: MOVED_PERMANENTLY(301) or FOUND(302)")
     private Integer redirectType;
@@ -58,7 +58,10 @@ public class UrlRegistrationData {
 
     @Override
     public String toString() {
-        return "UrlRegisterRequest{" + "url=" + url + ", redirectType=" + redirectType + '}';
+        return "UrlRegisterRequest{"
+               + "url=" + url
+               + ", redirectType=" + redirectType
+               + '}';
     }
 
 }

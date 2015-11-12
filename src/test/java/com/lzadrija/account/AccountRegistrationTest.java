@@ -36,7 +36,7 @@ public class AccountRegistrationTest extends BaseControllerTest {
     }
 
     @Test
-    public void whenAccountIdExistCreationShouldFail() throws Exception {
+    public void givenExistingAccountIdCreationShouldFail() throws Exception {
 
         String id = "Gimli1980";
         String exMsg = "Account ID: " + id + " already exists";
@@ -52,7 +52,7 @@ public class AccountRegistrationTest extends BaseControllerTest {
     }
 
     @Test
-    public void whenGivenValidIdCreateAccount() throws Exception {
+    public void givenValidIdShouldCreateAccount() throws Exception {
 
         Account a = new Account("_-+!$", "s4tbG685");
         when(factory.create(a.getId())).thenReturn(a);
@@ -66,7 +66,7 @@ public class AccountRegistrationTest extends BaseControllerTest {
     }
 
     @Test
-    public void whenAccountIdIsBlankCreationShouldFail() throws Exception {
+    public void givenBlankAccountIdCreationShouldFail() throws Exception {
 
         String id = null;
         String exMsg = getExMsg(id, "may not be null");
@@ -75,7 +75,7 @@ public class AccountRegistrationTest extends BaseControllerTest {
     }
 
     @Test
-    public void whenAccountIdContainsSlashesCreationShouldFail() throws Exception {
+    public void givenAccountIdWithSlashesCreationShouldFail() throws Exception {
 
         String id = "Merry/Pippin";
         String exMsg = getExMsg(id, "Account ID can only contain (min 3 and max 15): alphanumeric and special characters: _-+!$");

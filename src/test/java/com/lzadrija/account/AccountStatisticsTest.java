@@ -1,15 +1,15 @@
 package com.lzadrija.account;
 
-import com.lzadrija.ResultDescription;
 import com.lzadrija.BaseControllerTest;
+import com.lzadrija.ResultDescription;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.Filter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import javax.servlet.Filter;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class AccountStatisticsTest extends BaseControllerTest {
     }
 
     @Test
-    public void whenAccountIsRegisteredGetUrlStatistic() throws Exception {
+    public void givenRegisteredAccountShouldGetUrlStatistic() throws Exception {
 
         Account a = new Account("Smaug", "4d8tg8Tg");
         repo.save(a);
@@ -67,7 +67,7 @@ public class AccountStatisticsTest extends BaseControllerTest {
     }
 
     @Test
-    public void whenAccountDoesNotExistReturnUnauthorized() throws Exception {
+    public void givenNonExistentAccountShouldReturnUnauthorized() throws Exception {
 
         Account a = new Account("Sar_-+!$uman", "5986rdH4");
 

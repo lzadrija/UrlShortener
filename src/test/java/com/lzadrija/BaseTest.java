@@ -10,7 +10,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = MainConfiguration.class)
-public class BaseTest {
+public abstract class BaseTest {
 
     @Before
     public void setUp() {

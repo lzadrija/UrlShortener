@@ -21,7 +21,7 @@ public class AccountRegisteredUrlServiceTest extends BaseTest {
     private AccountRegisteredUrlService service;
 
     @Test
-    public void whenGivenExistingIdGetStatistic() {
+    public void givenExistingIdGetStatistic() {
 
         Account a = new Account("Pippin-1956", null);
         when(accountRepo.exists(a.getId())).thenReturn(true);
@@ -35,7 +35,7 @@ public class AccountRegisteredUrlServiceTest extends BaseTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void whenGivenInvalidIdShouldFailToGetStatistic() {
+    public void givenInvalidIdShouldFailToGetStatistic() {
 
         Account a = new Account("Grimma_1921", null);
         when(accountRepo.exists(a.getId())).thenReturn(false);

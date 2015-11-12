@@ -1,9 +1,9 @@
-package com.lzadrija;
+package com.lzadrija.url;
 
+import com.lzadrija.BaseControllerTest;
+import com.lzadrija.ResultDescription;
 import com.lzadrija.account.Account;
 import com.lzadrija.exception.ResourceNotFoundException;
-import com.lzadrija.url.RedirectUrl;
-import com.lzadrija.url.UrlController;
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.statistics.UrlHit;
 import com.lzadrija.url.statistics.UrlHitsService;

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionRes
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
-public class BaseControllerTest extends BaseTest {
+public abstract class BaseControllerTest extends BaseTest {
 
     private ObjectMapper jsonMapper;
 

@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Configuration
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {
 
+    private static final String ROLE_USER = "ROLE_USER";
+
     @Autowired
     private AccountRepository accountRepository;
 
@@ -28,7 +30,7 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
         return (accountId) -> {
             Account a = accountRepository.findOne(accountId);
             if (a != null) {
-                return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList("ROLE_USER"));
+                return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList(ROLE_USER));
             }
             throw new UsernameNotFoundException("Could not find the account with account ID: \"" + accountId + "\"");
         };

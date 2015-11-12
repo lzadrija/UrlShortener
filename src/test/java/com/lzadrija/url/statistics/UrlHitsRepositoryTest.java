@@ -28,7 +28,7 @@ public class UrlHitsRepositoryTest extends BaseTest {
     }
 
     @Test
-    public void shouldCountHitsByRedirectUrl() {
+    public void givenRedirectUrlShouldCountHits() {
 
         Account account = new Account("IllyrioMopatis{", "rtd4vG4v");
         RedirectUrl redirectUrl = RedirectUrl.create(account, "Aeg0n",

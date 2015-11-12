@@ -77,9 +77,9 @@ public class UrlControllerConstraintsTest extends BaseControllerTest {
         Account a = new Account("Spot3", "m38jKh98");
         repo.save(a);
 
+        String longUrl = "http://tjnrtyj\\+48rhger()?)(*&^%$#";
 
-        String longUrl = "http://tjnrtyj\\+48rhger";
-        String exMsg = String.format("[url = \"%s\", %s]", longUrl, "may not be null");
+        String exMsg = String.format("[url = \"%s\", %s]", longUrl, "must be a valid URL");
 
         callAndAssertRegistrationDataBadRequest(a, new UrlRegistrationData(longUrl), exMsg);
     }
@@ -107,4 +107,5 @@ public class UrlControllerConstraintsTest extends BaseControllerTest {
                 .andExpect(content().string(toJson(new ResultDescription(exMsg, false))))
                 .andDo(print());
     }
+
 }

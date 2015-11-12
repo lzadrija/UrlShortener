@@ -24,7 +24,7 @@ public class UrlRepositoryTest extends BaseTest {
     }
 
     @Test
-    public void shouldfindAllByAccount() {
+    public void givenAccountShouldfindAll() {
 
         Account account = new Account("Khaleesi14", "d4rtgyvt");
         RedirectUrl firstUrl = RedirectUrl.create(account, "Dr0G0n",

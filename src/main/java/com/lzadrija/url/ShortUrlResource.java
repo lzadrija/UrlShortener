@@ -1,5 +1,7 @@
 package com.lzadrija.url;
 
+import java.util.Objects;
+
 public class ShortUrlResource {
 
     private String shortUrl;
@@ -25,9 +27,23 @@ public class ShortUrlResource {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.shortUrl);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null) && (getClass() == obj.getClass())
+               && Objects.equals(this.shortUrl, ((ShortUrlResource) obj).shortUrl);
+    }
+
+    @Override
     public String toString() {
         return "ShortUrlResource{"
-               + "shortUrl=" + shortUrl + '}';
+               + "shortUrl=" + shortUrl
+               + '}';
     }
 
 }
