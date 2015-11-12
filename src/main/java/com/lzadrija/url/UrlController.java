@@ -2,12 +2,11 @@ package com.lzadrija.url;
 
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.registration.UrlRegistrationService;
-import com.lzadrija.url.shortening.ServerAddressFactory;
+import com.lzadrija.url.registration.ServerAddressFactory;
+import com.lzadrija.url.statistics.UrlHit;
 import com.lzadrija.url.statistics.UrlHitsService;
-import java.io.IOException;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -50,9 +49,10 @@ public class UrlController {
     }
 
     @RequestMapping(value = "/{shortUrl}")
-    public ModelAndView redirectUsingShortUrl(@PathVariable String shortUrl, HttpServletResponse response) throws IOException {
+    public ModelAndView redirectUsingShortUrl(@PathVariable String shortUrl) {
 
-        RedirectUrl redirectUrl = hitsService.record(shortUrl);
+        UrlHit hit = hitsService.record(shortUrl);
+        RedirectUrl redirectUrl = hit.getRedirectUrl();
 
         RedirectView rv = new RedirectView(redirectUrl.getLongUrl(), false);
         rv.setStatusCode(redirectUrl.getRedirectHttpStatus());

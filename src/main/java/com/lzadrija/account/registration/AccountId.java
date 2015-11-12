@@ -1,12 +1,13 @@
 package com.lzadrija.account.registration;
 
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class AccountId {
 
     @NotNull
-    @NotBlank
+    @Pattern(regexp = "^[A-Za-z0-9_!\\$+-]{3,15}$",
+             message = "Account ID can only contain (min 3 and max 15): alphanumeric and special characters: _-+!$")
     private String accountId;
 
     public AccountId() {

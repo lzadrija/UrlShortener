@@ -30,14 +30,12 @@ public class UrlHitsService {
         this.hitsRepo = hitsRepo;
     }
 
-    public RedirectUrl record(String shortUrl) {
+    public UrlHit record(String shortUrl) {
 
         verifyUrl(shortUrl);
 
         RedirectUrl redirectUrl = urlRepo.findOne(shortUrl);
-        hitsRepo.save(UrlHit.create(redirectUrl));
-
-        return redirectUrl;
+        return hitsRepo.save(UrlHit.create(redirectUrl));
     }
 
     private void verifyUrl(String shortUrl) {

@@ -33,7 +33,7 @@ public class UrlHit {
         this.hitTime = hitTime;
     }
 
-    static UrlHit create(RedirectUrl redirectUrl) {
+    public static UrlHit create(RedirectUrl redirectUrl) {
         return new UrlHit(redirectUrl, new Date());
     }
 

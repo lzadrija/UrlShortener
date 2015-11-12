@@ -22,25 +22,36 @@ public class UrlShortener {
 
     public String createShortUrl() {
 
-        List<Integer> digits = convertHashToDigits(createHash());
+        List<Integer> digits = convertHashToDigitsInSymbolsBase(createHash());
         return encodeDigitsToBaseSymbols(digits);
     }
 
     private long createHash() {
-        return repo.count() + 1;
+        return repo.count();
+    }
+
+    private List<Integer> convertHashToDigitsInSymbolsBase(long hash) {
+
+        List<Integer> digits = new ArrayList<>();
+
+        if (hash == 0) {
+            digits.add(0);
+        }
+        digits.addAll(convertHashToDigits(hash));
+
+        Collections.reverse(digits);
+        return digits;
     }
 
     private List<Integer> convertHashToDigits(long hash) {
 
         List<Integer> digits = new ArrayList<>();
-
         while (hash != 0) {
             long reminder = hash % symbols.getBase();
-            hash = symbols.getBase() * reminder;
+            hash = hash / symbols.getBase();
 
             digits.add((int) reminder);
         }
-        Collections.reverse(digits);
         return digits;
     }
 

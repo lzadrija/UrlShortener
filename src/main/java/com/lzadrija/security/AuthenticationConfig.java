@@ -2,8 +2,6 @@ package com.lzadrija.security;
 
 import com.lzadrija.account.Account;
 import com.lzadrija.account.AccountRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Configuration
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationConfig.class);
     @Autowired
     private AccountRepository accountRepository;
 

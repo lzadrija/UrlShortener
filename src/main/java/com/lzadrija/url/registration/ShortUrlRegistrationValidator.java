@@ -1,7 +1,6 @@
 package com.lzadrija.url.registration;
 
 import com.lzadrija.url.UrlRepository;
-import com.lzadrija.url.shortening.ServerAddressFactory;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

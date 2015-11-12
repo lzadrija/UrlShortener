@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountFactory factory;
-    private final AccountRegisteredUrlService registeredUrls;
+    private final AccountRegisteredUrlService registeredUrlService;
 
     @Autowired
-    public AccountController(AccountFactory factory, AccountRegisteredUrlService registeredUrls) {
+    public AccountController(AccountFactory factory, AccountRegisteredUrlService registeredUrlService) {
         this.factory = factory;
-        this.registeredUrls = registeredUrls;
+        this.registeredUrlService = registeredUrlService;
     }
 
     @ResponseBody
@@ -43,9 +43,9 @@ public class AccountController {
 
     @ResponseBody
     @RequestMapping(value = "/statistic/{accountId}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Long>> register(@PathVariable("accountId") String accountId) {
+    public ResponseEntity<Map<String, Long>> getUrlStatistic(@PathVariable("accountId") String accountId) {
 
-        Map<String, Long> statistic = registeredUrls.getStatisticForAccount(accountId);
+        Map<String, Long> statistic = registeredUrlService.getStatisticForAccount(accountId);
         return ResponseEntity.ok(statistic);
     }
 

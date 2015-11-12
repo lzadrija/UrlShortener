@@ -1,24 +1,15 @@
 package com.lzadrija.account;
 
-import com.lzadrija.MainConfiguration;
+import com.lzadrija.BaseTest;
 import com.lzadrija.exception.RegistrationException;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MainConfiguration.class)
-@WebAppConfiguration
-public class AccountFactoryTest {
+public class AccountFactoryTest extends BaseTest {
 
     private static final String ALPHANUMERIC_REGEX = "^[a-zA-Z0-9]*$";
 
@@ -26,12 +17,6 @@ public class AccountFactoryTest {
     private AccountRepository repo;
     @InjectMocks
     private AccountFactory factory;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        factory = new AccountFactory(repo);
-    }
 
     @Test
     public void whenGivenValidIdShouldCreateAccount() {

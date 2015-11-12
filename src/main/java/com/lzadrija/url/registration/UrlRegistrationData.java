@@ -1,5 +1,6 @@
 package com.lzadrija.url.registration;
 
+import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
@@ -13,6 +14,10 @@ public class UrlRegistrationData {
     private Integer redirectType;
 
     public UrlRegistrationData() {
+    }
+
+    public UrlRegistrationData(String url) {
+        this.url = url;
     }
 
     public UrlRegistrationData(String url, Integer redirectType) {
@@ -34,6 +39,21 @@ public class UrlRegistrationData {
 
     public void setRedirectType(Integer redirectType) {
         this.redirectType = redirectType;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.url);
+        hash = 47 * hash + Objects.hashCode(this.redirectType);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null) && (getClass() == obj.getClass())
+               && Objects.equals(this.url, ((UrlRegistrationData) obj).url)
+               && Objects.equals(this.redirectType, ((UrlRegistrationData) obj).redirectType);
     }
 
     @Override
