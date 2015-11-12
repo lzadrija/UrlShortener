@@ -1,6 +1,8 @@
 package com.lzadrija;
 
-public class ResultDescription {
+import com.lzadrija.help.api.resources.ResultDescriptionResource;
+
+public class ResultDescription implements ResultDescriptionResource {
 
     protected String description;
     protected boolean success;
@@ -13,20 +15,22 @@ public class ResultDescription {
         this.success = success;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    @Override
     public boolean isSuccess() {
         return success;
     }
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

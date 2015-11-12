@@ -1,27 +1,29 @@
 package com.lzadrija.url;
 
+import com.lzadrija.help.api.resources.ShortUrlResource;
 import java.util.Objects;
 
-public class ShortUrlResource {
+public class ShortUrl implements ShortUrlResource {
 
     private String shortUrl;
 
-    public ShortUrlResource() {
+    public ShortUrl() {
     }
 
-    private ShortUrlResource(String shortUrl) {
+    private ShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
 
-    public static ShortUrlResource create(RedirectUrl redirectUrl, String address) {
+    public static ShortUrl create(RedirectUrl redirectUrl, String address) {
         String shortUrlAddress = address + redirectUrl.getShortened();
-        return new ShortUrlResource(shortUrlAddress);
+        return new ShortUrl(shortUrlAddress);
     }
 
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
 
+    @Override
     public String getShortUrl() {
         return shortUrl;
     }
@@ -36,12 +38,12 @@ public class ShortUrlResource {
     @Override
     public boolean equals(Object obj) {
         return (obj != null) && (getClass() == obj.getClass())
-               && Objects.equals(this.shortUrl, ((ShortUrlResource) obj).shortUrl);
+               && Objects.equals(this.shortUrl, ((ShortUrl) obj).shortUrl);
     }
 
     @Override
     public String toString() {
-        return "ShortUrlResource{"
+        return "ShortUrl{"
                + "shortUrl=" + shortUrl
                + '}';
     }

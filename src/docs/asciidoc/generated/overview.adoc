@@ -13,3 +13,13 @@ Contact: lucija.zadrija@gmail.com
 Host: localhost
 BasePath: /
 
+=== Tags
+
+* account: account
+* account
+* help: help
+* help
+* url: url
+* url
+
+

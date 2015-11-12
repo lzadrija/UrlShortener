@@ -1,14 +1,15 @@
 package com.lzadrija.url.registration;
 
+import com.lzadrija.help.api.resources.UrlRegistrationResource;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
-public class UrlRegistrationData {
+public class UrlRegistrationData implements UrlRegistrationResource {
 
     @NotNull
-    @URL(regexp = "^(http|https|ftp)\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~])*$")
+    @URL(regexp = "^(http|https)\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~])*$")
     private String url;
     @Range(min = 301, max = 302, message = "Redirect type must be set to one of these two HTTP statuses: MOVED_PERMANENTLY(301) or FOUND(302)")
     private Integer redirectType;
@@ -25,6 +26,7 @@ public class UrlRegistrationData {
         this.redirectType = redirectType;
     }
 
+    @Override
     public String getUrl() {
         return url;
     }
@@ -33,6 +35,7 @@ public class UrlRegistrationData {
         this.url = url;
     }
 
+    @Override
     public Integer getRedirectType() {
         return redirectType;
     }

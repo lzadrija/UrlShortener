@@ -1,5 +1,10 @@
+== Description
+URL Shortener is a REST service used for representing long URLs with a possibly small set of alphanumeric characters.
+
 == Installation & setup
-Text
+This application is developed using JDK 8 and Apache Maven.
 
 == Usage
-Text2
+This service from terminal opened in the project's root folder using Jetty Maven plugin.
+
+

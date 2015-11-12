@@ -1,10 +1,11 @@
 package com.lzadrija.account.registration;
 
+import com.lzadrija.help.api.resources.AccountIdResource;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class AccountId {
+public class AccountId implements AccountIdResource {
 
     @NotNull
     @Pattern(regexp = "^[A-Za-z0-9_!\\$+-]{3,15}$",
@@ -18,6 +19,7 @@ public class AccountId {
         this.accountId = accountId;
     }
 
+    @Override
     public String getAccountId() {
         return accountId;
     }

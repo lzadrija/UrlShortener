@@ -76,7 +76,7 @@ public class UrlControllerRegistrationTest extends BaseControllerTest {
         mockMvc.perform(req)
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(content().string(toJson(ShortUrlResource.create(redirectUrl, address))))
+                .andExpect(content().string(toJson(ShortUrl.create(redirectUrl, address))))
                 .andDo(print());
     }
 

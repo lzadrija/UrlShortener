@@ -14,6 +14,8 @@ import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 
 public class Swagger2MarkupTest extends BaseTest {
 
+    private static final String OUTPUT_DIR = "src/docs/asciidoc/generated";
+
     @Autowired
     private WebApplicationContext context;
 
@@ -32,7 +34,7 @@ public class Swagger2MarkupTest extends BaseTest {
         this.mockMvc.perform(get("/helpjson")
                 .accept(APPLICATION_JSON))
                 .andDo(Swagger2MarkupResultHandler
-                        .outputDirectory("src/docs/asciidoc/generated")
+                        .outputDirectory(OUTPUT_DIR)
                         .build())
                 .andExpect(status().isOk());
     }

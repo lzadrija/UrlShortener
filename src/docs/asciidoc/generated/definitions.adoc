@@ -3,50 +3,38 @@
 [options="header"]
 |===
 |Name|Description|Required|Schema|Default
-|accountId||false|string|
+|accountId|Account ID containing min 3 and max 15 alphanumeric and special characters: _-+!$|true|string|
+|===
+
+=== ShortUrl
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|shortUrl|Generated short URL; contains alphanumeric characters (uppercase/lowercase) and/or digits|true|string|
 |===
 
 === UrlRegistrationData
 [options="header"]
 |===
 |Name|Description|Required|Schema|Default
-|redirectType||false|integer (int32)|
-|url||false|string|
+|redirectType|HTTP redirect response status, allowed: MOVED_PERMANENTLY(301) or FOUND(302), defaults to FOUND|false|integer (int32)|
+|url|Long URL to register and shorten; must be a valid URL prefixed by HTTP protocol|true|string|
 |===
 
-=== ModelMap
-=== ModelAndView
+=== ResultDescription
 [options="header"]
 |===
 |Name|Description|Required|Schema|Default
-|empty||false|boolean|
-|model||false|object|
-|modelMap||false|object|
-|reference||false|boolean|
-|view||false|<<View>>|
-|viewName||false|string|
-|===
-
-=== ShortUrlResource
-[options="header"]
-|===
-|Name|Description|Required|Schema|Default
-|shortUrl||false|string|
+|description|Result message, possibly validation or exception message|true|string|
+|success|Is operation successful|true|boolean|
 |===
 
 === AccountRegistration
 [options="header"]
 |===
 |Name|Description|Required|Schema|Default
-|description||false|string|
-|password||false|string|
-|success||false|boolean|
-|===
-
-=== View
-[options="header"]
-|===
-|Name|Description|Required|Schema|Default
-|contentType||false|string|
+|description|Result message, possibly validation or exception message|true|string|
+|password|Generated password; contains 8 alphanumeric characters (uppercase/lowercase)|false|string|
+|success|Is operation successful|true|boolean|
 |===
 

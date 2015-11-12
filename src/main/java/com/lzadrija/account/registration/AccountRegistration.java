@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.lzadrija.ResultDescription;
 import com.lzadrija.account.Account;
+import com.lzadrija.help.api.resources.AccountRegistrationResource;
 
-public class AccountRegistration extends ResultDescription {
+public class AccountRegistration extends ResultDescription implements AccountRegistrationResource {
 
     private static final String SUCCESS_REGISTRATION_MSG = "Your account is opened";
 
@@ -28,6 +29,7 @@ public class AccountRegistration extends ResultDescription {
         return new AccountRegistration(SUCCESS_REGISTRATION_MSG, true, account.getPassword());
     }
 
+    @Override
     public String getPassword() {
         return password;
     }

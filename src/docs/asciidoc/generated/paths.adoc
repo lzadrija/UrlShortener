@@ -1,5 +1,5 @@
 == Paths
-=== createAccount
+=== Open an account
 ----
 POST /account
 ----
@@ -8,18 +8,16 @@ POST /account
 [options="header"]
 |===
 |Type|Name|Description|Required|Schema|Default
-|BodyParameter|accId||true|<<AccountId>>|
+|BodyParameter|accountId|accountId|true|<<AccountId>>|
 |===
 
 ==== Responses
 [options="header"]
 |===
 |HTTP Code|Description|Schema
-|200|OK|<<AccountRegistration>>
-|201|Created|No Content
-|401|Unauthorized|No Content
-|403|Forbidden|No Content
-|404|Not Found|No Content
+|201|Account created|<<AccountRegistration>>
+|400|Invalid account ID supplied|<<ResultDescription>>
+|409|Account ID already exists|<<ResultDescription>>
 |===
 
 ==== Consumes
@@ -32,9 +30,9 @@ POST /account
 
 ==== Tags
 
-* 
+* account
 
-=== redirectToHelpPage
+=== Open Help page
 ----
 GET /help
 ----
@@ -43,10 +41,7 @@ GET /help
 [options="header"]
 |===
 |HTTP Code|Description|Schema
-|200|OK|<<ModelAndView>>
-|401|Unauthorized|No Content
-|403|Forbidden|No Content
-|404|Not Found|No Content
+|302|Redirected to help page|No Content
 |===
 
 ==== Consumes
@@ -59,9 +54,9 @@ GET /help
 
 ==== Tags
 
-* help
+* help-page
 
-=== register
+=== Register long URL
 ----
 POST /register
 ----
@@ -70,19 +65,16 @@ POST /register
 [options="header"]
 |===
 |Type|Name|Description|Required|Schema|Default
-|BodyParameter|data||true|<<UrlRegistrationData>>|
-|BodyParameter|principal||false|<<Principal>>|
+|BodyParameter|data|data|true|<<UrlRegistrationData>>|
 |===
 
 ==== Responses
 [options="header"]
 |===
 |HTTP Code|Description|Schema
-|200|OK|<<ShortUrlResource>>
-|201|Created|No Content
-|401|Unauthorized|No Content
-|403|Forbidden|No Content
-|404|Not Found|No Content
+|201|Long URL registered|<<ShortUrl>>
+|400|Invalid registration data supplied|<<ResultDescription>>
+|409|URL is an already registered short URL|<<ResultDescription>>
 |===
 
 ==== Consumes
@@ -95,9 +87,9 @@ POST /register
 
 ==== Tags
 
-* 
+* url-register
 
-=== getUrlStatistic
+=== Retrieve short URL usage statistics
 ----
 GET /statistic/{accountId}
 ----
@@ -106,17 +98,15 @@ GET /statistic/{accountId}
 [options="header"]
 |===
 |Type|Name|Description|Required|Schema|Default
-|PathParameter|accountId||true|string|
+|PathParameter|accountId|accountId|true|string|
 |===
 
 ==== Responses
 [options="header"]
 |===
 |HTTP Code|Description|Schema
-|200|OK|object
-|401|Unauthorized|No Content
-|403|Forbidden|No Content
-|404|Not Found|No Content
+|200|Retrieved statistic as [long URL to hit count]|integer (int64)
+|404|Account ID is not registered|<<ResultDescription>>
 |===
 
 ==== Consumes
@@ -129,9 +119,9 @@ GET /statistic/{accountId}
 
 ==== Tags
 
-* 
+* account-URL
 
-=== redirectUsingShortUrl
+=== Redirect to long URL using short URL
 ----
 GET /{shortUrl}
 ----
@@ -140,17 +130,16 @@ GET /{shortUrl}
 [options="header"]
 |===
 |Type|Name|Description|Required|Schema|Default
-|PathParameter|shortUrl||true|string|
+|PathParameter|shortUrl|shortUrl|true|string|
 |===
 
 ==== Responses
 [options="header"]
 |===
 |HTTP Code|Description|Schema
-|200|OK|<<ModelAndView>>
-|401|Unauthorized|No Content
-|403|Forbidden|No Content
-|404|Not Found|No Content
+|301|Redirected to long URL|No Content
+|302|Redirected to long URL|No Content
+|404|Short URL is not registered|<<ResultDescription>>
 |===
 
 ==== Consumes
@@ -163,5 +152,5 @@ GET /{shortUrl}
 
 ==== Tags
 
-* 
+* url-redirect
 
