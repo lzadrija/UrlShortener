@@ -1,0 +1,167 @@
+== Paths
+=== createAccount
+----
+POST /account
+----
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|BodyParameter|accId||true|<<AccountId>>|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|OK|<<AccountRegistration>>
+|201|Created|No Content
+|401|Unauthorized|No Content
+|403|Forbidden|No Content
+|404|Not Found|No Content
+|===
+
+==== Consumes
+
+* application/json
+
+==== Produces
+
+* application/json
+
+==== Tags
+
+* 
+
+=== redirectToHelpPage
+----
+GET /help
+----
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|OK|<<ModelAndView>>
+|401|Unauthorized|No Content
+|403|Forbidden|No Content
+|404|Not Found|No Content
+|===
+
+==== Consumes
+
+* application/json
+
+==== Produces
+
+* */*
+
+==== Tags
+
+* help
+
+=== register
+----
+POST /register
+----
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|BodyParameter|data||true|<<UrlRegistrationData>>|
+|BodyParameter|principal||false|<<Principal>>|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|OK|<<ShortUrlResource>>
+|201|Created|No Content
+|401|Unauthorized|No Content
+|403|Forbidden|No Content
+|404|Not Found|No Content
+|===
+
+==== Consumes
+
+* application/json
+
+==== Produces
+
+* application/json
+
+==== Tags
+
+* 
+
+=== getUrlStatistic
+----
+GET /statistic/{accountId}
+----
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|PathParameter|accountId||true|string|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|OK|object
+|401|Unauthorized|No Content
+|403|Forbidden|No Content
+|404|Not Found|No Content
+|===
+
+==== Consumes
+
+* application/json
+
+==== Produces
+
+* application/json
+
+==== Tags
+
+* 
+
+=== redirectUsingShortUrl
+----
+GET /{shortUrl}
+----
+
+==== Parameters
+[options="header"]
+|===
+|Type|Name|Description|Required|Schema|Default
+|PathParameter|shortUrl||true|string|
+|===
+
+==== Responses
+[options="header"]
+|===
+|HTTP Code|Description|Schema
+|200|OK|<<ModelAndView>>
+|401|Unauthorized|No Content
+|403|Forbidden|No Content
+|404|Not Found|No Content
+|===
+
+==== Consumes
+
+* application/json
+
+==== Produces
+
+* */*
+
+==== Tags
+
+* 
+

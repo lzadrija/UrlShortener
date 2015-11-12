@@ -1,0 +1,15 @@
+= URL Shortener API
+
+== Overview
+Simple REST API for URL shortening
+
+=== Version information
+Version: 1.0.0
+
+=== Contact information
+Contact: lucija.zadrija@gmail.com
+
+=== URI scheme
+Host: localhost
+BasePath: /
+

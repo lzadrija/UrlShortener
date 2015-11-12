@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.lzadrija</groupId>
     <artifactId>url-shortener</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     
     <packaging>war</packaging>
     
@@ -15,6 +15,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <asciidoctor.source.dir>src/docs/asciidoc/</asciidoctor.source.dir>
     </properties>
     
     <dependencies>
@@ -158,6 +159,23 @@
             <scope>test</scope>
         </dependency>
         
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-staticdocs</artifactId>
+            <version>2.2.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>1.5.2.1</version>
+        </dependency>
+        
     </dependencies>
 
     <build>
@@ -171,6 +189,76 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html</backend>
+                            <attributes>
+                                <toclevels>2</toclevels>
+                                <toc>left</toc>
+                                <doctype>book</doctype>
+                                <generated>${asciidoctor.source.dir}generated</generated>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDirectory>${asciidoctor.source.dir}</sourceDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources-src</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/docs</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/generated-docs</directory>
+                                    <includes>
+                                        <include>**/index.html</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-target</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/docs</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/generated-docs</directory>
+                                    <includes>
+                                        <include>**/index.html</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -180,6 +268,7 @@
                     <stopPort>9999</stopPort>
                 </configuration>
             </plugin>
+            
         </plugins>
     </build>
 </project>

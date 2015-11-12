@@ -1,0 +1,52 @@
+== Definitions
+=== AccountId
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|accountId||false|string|
+|===
+
+=== UrlRegistrationData
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|redirectType||false|integer (int32)|
+|url||false|string|
+|===
+
+=== ModelMap
+=== ModelAndView
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|empty||false|boolean|
+|model||false|object|
+|modelMap||false|object|
+|reference||false|boolean|
+|view||false|<<View>>|
+|viewName||false|string|
+|===
+
+=== ShortUrlResource
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|shortUrl||false|string|
+|===
+
+=== AccountRegistration
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|description||false|string|
+|password||false|string|
+|success||false|boolean|
+|===
+
+=== View
+[options="header"]
+|===
+|Name|Description|Required|Schema|Default
+|contentType||false|string|
+|===
+
