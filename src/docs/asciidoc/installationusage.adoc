@@ -1,10 +1,50 @@
 == Description
-URL Shortener is a REST service used for representing long URLs with a possibly small set of alphanumeric characters.
+
+URL Shortener is a REST service used for representing long URL-s with a possibly small set of characters.+
+
+=== URL shortening
+
+URL shortening is a procedure based on assigning a unique number, a _hash_, to each URL that is to be shortened. This _hash_ is essentially a `key` that is used to retrieve
+ a long URL assigned to it. For this to be possible, each hash is encoded using a set URL permissible characters. This encoded hash can be suffixed with server address or 
+application domain and used as an _short_ URL itself. So each time a short URL is referenced, it is used as a key to find and redirect to a long URL mapped to it.
+
+This service uses a number of registered long URL-s as a hash. A hash is encoded using a set of case sensitive alphanumeric characters and digits, a total of 62 characters. 
+Encoding procedure is basically a decimal number to base-62 conversion, where base-62 uses sixty two distinct symbols from these range of characters: `a-z`, `A-Z`, `0-9`.
+
+==== Example
+
+Long URL to shorten::
+* https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X#authorization-authorizationscope
+Hash::
+* `68719476736` (two to the power of thirty six)
+Base-62 conversion::
+* `68719476736` is represented as `bnaN5hc` (with seven characters) in base-62
+The result short URL::
+* http://short.com/bnaN5hc
+
+=== URL shortening REST service
+
+The shortening REST service can be logically divided into two segments: _configuration_ and _user_ segments.
+
+korisnicki login
+registracija urla za autorizirane korisnike (basic auth) statistiku koristenja i 
 
 == Installation & setup
-This application is developed using JDK 8 and Apache Maven.
+
+This application is developed using JDK 8 and Apache Maven, 
+
+uses h2 inememory database
+shipped as war, can be deployed on any web or app server
+jetty maven plugin konfiguracija, detalji na linku
+mvn package & war ili scattered mode
 
 == Usage
+
 This service from terminal opened in the project's root folder using Jetty Maven plugin.
+pokretanje u waru s custom portom
+zaustavljanje s keyem i portom
+
+opis rest apija u nastavku
+autorizacija headerom
 
 

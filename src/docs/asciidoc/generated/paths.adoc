@@ -74,6 +74,7 @@ POST /register
 |HTTP Code|Description|Schema
 |201|Long URL registered|<<ShortUrl>>
 |400|Invalid registration data supplied|<<ResultDescription>>
+|401|Bad cedentials, invalid Account info supplied|<<ResultDescription>>
 |409|URL is an already registered short URL|<<ResultDescription>>
 |===
 
@@ -106,6 +107,7 @@ GET /statistic/{accountId}
 |===
 |HTTP Code|Description|Schema
 |200|Retrieved statistic as [long URL to hit count]|integer (int64)
+|401|Bad cedentials, invalid Account info supplied|<<ResultDescription>>
 |404|Account ID is not registered|<<ResultDescription>>
 |===
 

@@ -1,7 +1,7 @@
 = URL Shortener API
 
 == Overview
-Simple REST API for URL shortening
+REST API for URL shortening
 
 === Version information
 Version: 1.0.0

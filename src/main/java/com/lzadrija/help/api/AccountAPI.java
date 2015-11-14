@@ -25,9 +25,10 @@ public interface AccountAPI {
 
     @ApiOperation(tags = "account-URL", value = "Retrieve short URL usage statistics",
                   authorizations = {
-                      @Authorization(value = "basicAccountId")})
+                      @Authorization(value = "basicAuth")})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Retrieved statistic as [long URL to hit count]", response = Long.class, responseContainer = "Map"),
+        @ApiResponse(code = 401, message = "Bad cedentials, invalid Account info supplied", response = ResultDescription.class),
         @ApiResponse(code = 404, message = "Account ID is not registered", response = ResultDescription.class)
     })
     ResponseEntity<Map<String, Long>> getUrlStatistic(@ApiParam(required = true) String accountId);

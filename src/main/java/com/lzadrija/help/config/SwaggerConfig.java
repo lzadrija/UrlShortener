@@ -3,13 +3,19 @@ package com.lzadrija.help.config;
 import com.google.common.base.Predicate;
 import static com.google.common.base.Predicates.or;
 import static com.google.common.collect.Lists.newArrayList;
-import org.springframework.beans.factory.annotation.Value;
+import static com.lzadrija.help.config.SwaggerConfig.HelpProperty.CONTACT;
+import static com.lzadrija.help.config.SwaggerConfig.HelpProperty.DESCRIPTION;
+import static com.lzadrija.help.config.SwaggerConfig.HelpProperty.TITLE;
+import static com.lzadrija.help.config.SwaggerConfig.HelpProperty.VERSION;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import static springfox.documentation.builders.PathSelectors.regex;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -19,13 +25,13 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@PropertySource("classpath:swagger.properties")
 @Configuration
 @EnableSwagger2
+@PropertySource(value = {"classpath:swagger.properties", "classpath:help.properties"})
 public class SwaggerConfig {
 
-    @Value("${springfox.documentation.swagger.v2.path}")
-    private String swagger2Endpoint;
+    @Autowired
+    private Environment env;
 
     @Bean
     public Docket api() {
@@ -33,7 +39,7 @@ public class SwaggerConfig {
                 .forCodeGeneration(true)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(paths())
+                .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false)
                 .directModelSubstitute(ModelAndView.class, Void.class)
@@ -43,25 +49,17 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo());
     }
 
-    private Predicate<String> paths() {
-        return or(
-                regex("/account.*"),
-                regex("/register.*"),
-                regex("/statistic.*"),
-                regex("/.*"));
-    }
-
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("URL Shortener API")
-                .description("Simple REST API for URL shortening")
-                .contact("lucija.zadrija@gmail.com")
-                .version("1.0.0")
+                .title(TITLE.getValue(env))
+                .description(DESCRIPTION.getValue(env))
+                .contact(CONTACT.getValue(env))
+                .version(VERSION.getValue(env))
                 .build();
     }
 
     private BasicAuth auth() {
-        return new BasicAuth("basicAccountId");
+        return new BasicAuth("basicAuth");
     }
 
     private SecurityContext securityContext() {
@@ -69,6 +67,19 @@ public class SwaggerConfig {
                 .forPaths(or(regex("/register.*"),
                              regex("/statistic.*")))
                 .build();
+    }
+
+    enum HelpProperty {
+
+        TITLE,
+        DESCRIPTION,
+        CONTACT,
+        VERSION;
+
+        String getValue(Environment env) {
+            return env.getRequiredProperty(name().toLowerCase());
+        }
+
     }
 
 }

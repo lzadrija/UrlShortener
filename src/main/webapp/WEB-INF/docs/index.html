@@ -423,7 +423,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_tags">Tags</a></li>
 </ul>
 </li>
-<li><a href="#_description">Description</a></li>
+<li><a href="#_description">Description</a>
+<ul class="sectlevel2">
+<li><a href="#_url_shortening">URL shortening</a></li>
+<li><a href="#_url_shortening_rest_service">URL shortening REST service</a></li>
+</ul>
+</li>
 <li><a href="#_installation_setup">Installation &amp; setup</a></li>
 <li><a href="#_usage">Usage</a></li>
 <li><a href="#_paths">Paths</a>
@@ -452,7 +457,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Simple REST API for URL shortening</p>
+<p>REST API for URL shortening</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
@@ -504,7 +509,76 @@ BasePath: /</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>URL Shortener is a REST service used for representing long URLs with a possibly small set of alphanumeric characters.</p>
+<p>URL Shortener is a REST service used for representing long URL-s with a possibly small set of characters.+</p>
+</div>
+<div class="sect2">
+<h3 id="_url_shortening">URL shortening</h3>
+<div class="paragraph">
+<p>URL shortening is a procedure based on assigning a unique number, a <em>hash</em>, to each URL that is to be shortened. This <em>hash</em> is essentially a <code>key</code> that is used to retrieve
+ a long URL assigned to it. For this to be possible, each hash is encoded using a set URL permissible characters. This encoded hash can be suffixed with server address or
+application domain and used as an <em>short</em> URL itself. So each time a short URL is referenced, it is used as a key to find and redirect to a long URL mapped to it.</p>
+</div>
+<div class="paragraph">
+<p>This service uses a number of registered long URL-s as a hash. A hash is encoded using a set of case sensitive alphanumeric characters and digits, a total of 62 characters.
+Encoding procedure is basically a decimal number to base-62 conversion, where base-62 uses sixty two distinct symbols from these range of characters: <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_example">Example</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Long URL to shorten</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X#authorization-authorizationscope" class="bare">https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X#authorization-authorizationscope</a></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Hash</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>68719476736</code> (two to the power of thirty six)</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Base-62 conversion</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>68719476736</code> is represented as <code>bnaN5hc</code> (with seven characters) in base-62</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">The result short URL</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://short.com/bnaN5hc" class="bare">http://short.com/bnaN5hc</a></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_url_shortening_rest_service">URL shortening REST service</h3>
+<div class="paragraph">
+<p>The shortening REST service is comprised of</p>
+</div>
+<div class="paragraph">
+<p>korisnicki login
+registracija urla za autorizirane korisnike (basic auth) statistiku koristenja i</p>
+</div>
 </div>
 </div>
 </div>
@@ -512,7 +586,13 @@ BasePath: /</p>
 <h2 id="_installation_setup">Installation &amp; setup</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This application is developed using JDK 8 and Apache Maven.</p>
+<p>This application is developed using JDK 8 and Apache Maven,</p>
+</div>
+<div class="paragraph">
+<p>uses h2 inememory database
+shipped as war, can be deployed on any web or app server
+jetty maven plugin konfiguracija, detalji na linku
+mvn package &amp; war ili scattered mode</p>
 </div>
 </div>
 </div>
@@ -520,7 +600,13 @@ BasePath: /</p>
 <h2 id="_usage">Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This service from terminal opened in the project&#8217;s root folder using Jetty Maven plugin.</p>
+<p>This service from terminal opened in the project&#8217;s root folder using Jetty Maven plugin.
+pokretanje u waru s custom portom
+zaustavljanje s keyem i portom</p>
+</div>
+<div class="paragraph">
+<p>opis rest apija u nastavku
+autorizacija headerom</p>
 </div>
 </div>
 </div>
@@ -761,6 +847,11 @@ BasePath: /</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_resultdescription">ResultDescription</a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad cedentials, invalid Account info supplied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_resultdescription">ResultDescription</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">URL is an already registered short URL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_resultdescription">ResultDescription</a></p></td>
@@ -859,6 +950,11 @@ BasePath: /</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieved statistic as [long URL to hit count]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer (int64)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad cedentials, invalid Account info supplied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_resultdescription">ResultDescription</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>

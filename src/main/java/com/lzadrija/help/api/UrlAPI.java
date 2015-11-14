@@ -18,10 +18,11 @@ public interface UrlAPI {
 
     @ApiOperation(tags = "url-register", value = "Register long URL",
                   authorizations = {
-                      @Authorization(value = "basicAccountId")})
+                      @Authorization(value = "basicAuth")})
     @ApiResponses(value = {
         @ApiResponse(code = 201, message = "Long URL registered"),
         @ApiResponse(code = 400, message = "Invalid registration data supplied", response = ResultDescription.class),
+        @ApiResponse(code = 401, message = "Bad cedentials, invalid Account info supplied", response = ResultDescription.class),
         @ApiResponse(code = 409, message = "URL is an already registered short URL", response = ResultDescription.class)
     })
     ResponseEntity<ShortUrl> register(@ApiParam(required = true) UrlRegistrationData data,

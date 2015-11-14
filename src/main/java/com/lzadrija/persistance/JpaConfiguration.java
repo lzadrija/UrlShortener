@@ -54,7 +54,7 @@ public class JpaConfiguration {
         emFactoryBean.setDataSource(dataSource());
 
         Properties properties = new Properties();
-        properties.setProperty(JPA_DIALECT.getName(), env.getRequiredProperty(JPA_DIALECT.getName()));
+        properties.setProperty(JPA_DIALECT.name, JPA_DIALECT.getValue(env));
         emFactoryBean.setJpaProperties(properties);
 
         emFactoryBean.afterPropertiesSet();
@@ -67,10 +67,10 @@ public class JpaConfiguration {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(env.getRequiredProperty(DRIVER.getName()));
-        dataSource.setUrl(env.getRequiredProperty(URL.getName()));
-        dataSource.setUsername(env.getRequiredProperty(USERNAME.getName()));
-        dataSource.setPassword(env.getRequiredProperty(PASSWORD.getName()));
+        dataSource.setDriverClassName(DRIVER.getValue(env));
+        dataSource.setUrl(URL.getValue(env));
+        dataSource.setUsername(USERNAME.getValue(env));
+        dataSource.setPassword(PASSWORD.getValue(env));
 
         return dataSource;
     }
@@ -93,14 +93,14 @@ public class JpaConfiguration {
         PASSWORD("db.password"),
         JPA_DIALECT("hibernate.dialect");
 
-        private final String propName;
+        final String name;
 
         private DbProperty(String propertyName) {
-            this.propName = propertyName;
+            this.name = propertyName;
         }
 
-        String getName() {
-            return propName;
+        String getValue(Environment env) {
+            return env.getRequiredProperty(name);
         }
 
     }
