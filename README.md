@@ -45,7 +45,7 @@ The shortening API offers:
 
 where URL registration and usage statistic is available only to authorized users with an account. Basic authentication is used and user's account ID and password need 
 to be provided in the `Authorization header`.
-Each registered URL can be referenced with a given short URL by anyone. These operations and their detailed descriptions can be found on the application's help page (`/help`)
+Each registered URL can be referenced with a given short URL by anyone. 
 
 ###Installation & setup
 <p></p>
@@ -67,7 +67,7 @@ To run this service using Jetty Maven plugin, Apache Maven and JDK 8 need to be 
 
 To run Jetty web container using Jetty Maven plugin in terminal, from the project's root folder, use:   
 ```mvn package jetty:run-war```     
-or to run to start the service in [scattered][7] mode (for testing/development purposes):   
+or to start the service in [scattered][7] mode (for testing/development purposes):   
 ```mvn jetty:run```     
 This will start one instance of Jetty web container and the shortening service will be available at the URL:    
 http://localhost:8080/  
@@ -79,6 +79,39 @@ To stop the Jetty web container, use: `stop.key` and `stop.port` configured in t
 ```mvn -Dstop.key=STOP -Dstop.port=9999 jetty:stop```   
 
 For detailed description of the entire service, and how to use it, visit `Help page` which is available at `/help` 
+
+####Example
+
+* Opening an account
+
+`/account`
+
+| TYPE          | VALUE            |
+| ------------- | -----------------|
+| HTTP method   | POST             |
+| JSON request  | { "accountId":"Merry" } |
+| JSON response | { description: "Your account is opened" success: true password: "PlT8tduA" } |
+
+* Long URL registration and shortening
+
+`register`
+
+| TYPE          | VALUE            |
+| ------------- | -----------------|
+| HTTP method   | POST             |
+| Header        | Authorization: Basic TWVycnk6UGxUOHRkdUE= |
+| JSON request  | { "url":"https://www7.pearsonvue.com/testtaker/signin/SignInPage.htm?clientCode=ORACLE" } |
+| JSON response | { shortUrl: "http://localhost:8181/a" } |
+
+* registered short URL usage statistic retrieval
+
+`/statistic/Merry` 
+
+| TYPE          | VALUE            |
+| ------------- | -----------------|
+| HTTP method   | GET             |
+| Header        | Authorization: Basic TWVycnk6UGxUOHRkdUE= |
+| JSON response | { https://www7.pearsonvue.com/testtaker/signin/SignInPage.htm?clientCode=ORACLE: 5 } |
 
 [1]: http://www.oracle.com/technetwork/java/javase/downloads/       "Java download"
 [2]: http://maven.apache.org/download.cgi       "Maven download"
