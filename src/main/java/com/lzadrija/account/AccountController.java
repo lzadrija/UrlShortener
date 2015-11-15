@@ -2,7 +2,6 @@ package com.lzadrija.account;
 
 import com.lzadrija.account.registration.AccountId;
 import com.lzadrija.account.registration.AccountRegistration;
-import com.lzadrija.help.api.AccountAPI;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
-public class AccountController implements AccountAPI {
+public class AccountController {
 
     private final AccountFactory factory;
     private final AccountRegisteredUrlService registeredUrlService;
@@ -35,7 +34,6 @@ public class AccountController implements AccountAPI {
     @ResponseBody
     @ResponseStatus(value = CREATED)
     @RequestMapping(value = "/account", method = POST, produces = APPLICATION_JSON_VALUE)
-    @Override
     public ResponseEntity<AccountRegistration> createAccount(@Valid @RequestBody AccountId accountId) {
 
         Account account = factory.create(accountId.getAccountId());
@@ -49,7 +47,6 @@ public class AccountController implements AccountAPI {
     @ResponseBody
     @ResponseStatus(value = OK)
     @RequestMapping(value = "/statistic/{accountId}", method = GET, produces = APPLICATION_JSON_VALUE)
-    @Override
     public ResponseEntity<Map<String, Long>> getUrlStatistic(@PathVariable("accountId") String accountId) {
 
         Map<String, Long> statistic = registeredUrlService.getStatisticForAccount(accountId);

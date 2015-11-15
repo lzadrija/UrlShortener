@@ -1,12 +1,11 @@
 package com.lzadrija.url.registration;
 
-import com.lzadrija.help.api.resources.UrlRegistrationResource;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
-public class UrlRegistrationData implements UrlRegistrationResource {
+public class UrlRegistrationData {
 
     @NotNull
     @URL(regexp = "^(http|https)\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~])*$")
@@ -26,7 +25,6 @@ public class UrlRegistrationData implements UrlRegistrationResource {
         this.redirectType = redirectType;
     }
 
-    @Override
     public String getUrl() {
         return url;
     }
@@ -35,7 +33,6 @@ public class UrlRegistrationData implements UrlRegistrationResource {
         this.url = url;
     }
 
-    @Override
     public Integer getRedirectType() {
         return redirectType;
     }

@@ -1,6 +1,5 @@
 package com.lzadrija.url;
 
-import com.lzadrija.help.api.UrlAPI;
 import com.lzadrija.url.registration.ServiceAddressFactory;
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.registration.UrlRegistrationService;
@@ -28,7 +27,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/")
-public class UrlController implements UrlAPI {
+public class UrlController {
 
     private final UrlRegistrationService urlRegService;
     private final ServiceAddressFactory addressFactory;
@@ -44,7 +43,6 @@ public class UrlController implements UrlAPI {
     @ResponseBody
     @ResponseStatus(value = CREATED)
     @RequestMapping(value = "/register", method = POST, produces = APPLICATION_JSON_VALUE)
-    @Override
     public ResponseEntity<ShortUrl> register(@Valid @RequestBody UrlRegistrationData data, HttpServletRequest request) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -58,7 +56,6 @@ public class UrlController implements UrlAPI {
 
     @ResponseStatus(value = FOUND)
     @RequestMapping(value = "/{shortUrl}", method = GET)
-    @Override
     public ModelAndView redirectUsingShortUrl(@PathVariable String shortUrl) {
 
         UrlHit hit = hitsService.record(shortUrl);

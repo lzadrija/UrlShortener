@@ -9,17 +9,10 @@ Version: 1.0.0
 === Contact information
 Contact: lucija.zadrija@gmail.com
 
-=== URI scheme
-Host: localhost
-BasePath: /
-
 === Tags
 
-* account: account
 * account
-* help: help
 * help
-* url: url
 * url
 
 

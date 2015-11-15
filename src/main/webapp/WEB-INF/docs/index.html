@@ -419,7 +419,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_version_information">Version information</a></li>
 <li><a href="#_contact_information">Contact information</a></li>
-<li><a href="#_uri_scheme">URI scheme</a></li>
 <li><a href="#_tags">Tags</a></li>
 </ul>
 </li>
@@ -472,30 +471,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uri_scheme">URI scheme</h3>
-<div class="paragraph">
-<p>Host: localhost
-BasePath: /</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_tags">Tags</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>account: account</p>
-</li>
-<li>
 <p>account</p>
 </li>
 <li>
-<p>help: help</p>
-</li>
-<li>
 <p>help</p>
-</li>
-<li>
-<p>url: url</p>
 </li>
 <li>
 <p>url</p>
@@ -610,12 +593,11 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h4 id="_parameters">Parameters</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
@@ -624,7 +606,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
 <th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -634,7 +615,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">accountId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_accountid">AccountId</a></p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -773,16 +753,20 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <pre>POST /register</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>Authorization HTTP Basic Authentication header (accountId/password)</pre>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_parameters_2">Parameters</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
@@ -791,7 +775,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
 <th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -801,7 +784,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_urlregistrationdata">UrlRegistrationData</a></p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -883,16 +865,20 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <pre>GET /statistic/{accountId}</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>Authorization HTTP Basic Authentication header (accountId/password)</pre>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_parameters_3">Parameters</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
@@ -901,7 +887,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
 <th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -910,8 +895,7 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">accountId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">accountId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 </tbody>
 </table>
@@ -935,7 +919,7 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieved statistic as [long URL to hit count]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String,Long&gt;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
@@ -992,12 +976,11 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h4 id="_parameters_4">Parameters</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
@@ -1006,7 +989,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
 <th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -1015,8 +997,7 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">shortUrl</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">shortUrl</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 </tbody>
 </table>
@@ -1095,28 +1076,22 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h3 id="_accountid">AccountId</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">accountId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Account ID containing min 3 and max 15 alphanumeric and special characters: _-+!$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Account ID containing min 3 and max 15 alphanumeric and special characters: <code>_-+!$</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1125,19 +1100,15 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h3 id="_shorturl">ShortUrl</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -1145,8 +1116,6 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">shortUrl</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Generated short URL; contains alphanumeric characters (uppercase/lowercase) and/or digits</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1155,35 +1124,27 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h3 id="_urlregistrationdata">UrlRegistrationData</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">redirectType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP redirect response status, allowed: MOVED_PERMANENTLY(301) or FOUND(302), defaults to FOUND</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP redirect response status, allowed: <code>MOVED_PERMANENTLY</code>(<code>301</code>) or <code>FOUND</code>(<code>302</code>), defaults to <code>FOUND</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Long URL to register and shorten; must be a valid URL prefixed by HTTP protocol</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1192,19 +1153,15 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h3 id="_resultdescription">ResultDescription</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -1212,15 +1169,11 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Result message, possibly validation or exception message</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is operation successful</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1229,19 +1182,15 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <h3 id="_accountregistration">AccountRegistration</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
 </tr>
 </thead>
 <tbody>
@@ -1249,22 +1198,16 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Result message, possibly validation or exception message</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Generated password; contains 8 alphanumeric characters (uppercase/lowercase)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is operation successful</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>

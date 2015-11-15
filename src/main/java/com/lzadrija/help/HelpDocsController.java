@@ -1,6 +1,5 @@
 package com.lzadrija.help;
 
-import com.lzadrija.help.api.HelpAPI;
 import static org.springframework.http.HttpStatus.FOUND;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -11,11 +10,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/help")
-public class HelpDocsController implements HelpAPI {
+public class HelpDocsController {
 
     @ResponseStatus(value = FOUND)
     @RequestMapping(method = GET)
-    @Override
     public ModelAndView redirectToHelpPage() {
 
         RedirectView rv = new RedirectView("/docs/index.html", true);

@@ -1,9 +1,8 @@
 package com.lzadrija.url;
 
-import com.lzadrija.help.api.resources.ShortUrlResource;
 import java.util.Objects;
 
-public class ShortUrl implements ShortUrlResource {
+public class ShortUrl {
 
     private String shortUrl;
 
@@ -23,7 +22,6 @@ public class ShortUrl implements ShortUrlResource {
         this.shortUrl = shortUrl;
     }
 
-    @Override
     public String getShortUrl() {
         return shortUrl;
     }

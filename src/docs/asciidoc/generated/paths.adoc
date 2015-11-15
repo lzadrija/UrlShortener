@@ -7,8 +7,8 @@ POST /account
 ==== Parameters
 [options="header"]
 |===
-|Type|Name|Description|Required|Schema|Default
-|BodyParameter|accountId|accountId|true|<<AccountId>>|
+|Type|Name|Description|Required|Schema
+|BodyParameter|accountId|accountId|true|<<AccountId>>
 |===
 
 ==== Responses
@@ -60,12 +60,14 @@ GET /help
 ----
 POST /register
 ----
-
+----
+Authorization HTTP Basic Authentication header (accountId/password)
+----
 ==== Parameters
 [options="header"]
 |===
-|Type|Name|Description|Required|Schema|Default
-|BodyParameter|data|data|true|<<UrlRegistrationData>>|
+|Type|Name|Description|Required|Schema
+|BodyParameter|data|data|true|<<UrlRegistrationData>>
 |===
 
 ==== Responses
@@ -94,19 +96,21 @@ POST /register
 ----
 GET /statistic/{accountId}
 ----
-
+----
+Authorization HTTP Basic Authentication header (accountId/password)
+----
 ==== Parameters
 [options="header"]
 |===
-|Type|Name|Description|Required|Schema|Default
-|PathParameter|accountId|accountId|true|string|
+|Type|Name|Description|Required|Schema
+|PathParameter|accountId|accountId|true|String
 |===
 
 ==== Responses
 [options="header"]
 |===
 |HTTP Code|Description|Schema
-|200|Retrieved statistic as [long URL to hit count]|integer (int64)
+|200|Retrieved statistic as [long URL to hit count]|Map<String,Long>
 |401|Bad cedentials, invalid Account info supplied|<<ResultDescription>>
 |404|Account ID is not registered|<<ResultDescription>>
 |===
@@ -131,8 +135,8 @@ GET /{shortUrl}
 ==== Parameters
 [options="header"]
 |===
-|Type|Name|Description|Required|Schema|Default
-|PathParameter|shortUrl|shortUrl|true|string|
+|Type|Name|Description|Required|Schema
+|PathParameter|shortUrl|shortUrl|true|String
 |===
 
 ==== Responses
