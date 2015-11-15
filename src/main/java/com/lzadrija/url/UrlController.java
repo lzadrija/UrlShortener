@@ -1,7 +1,7 @@
 package com.lzadrija.url;
 
 import com.lzadrija.help.api.UrlAPI;
-import com.lzadrija.url.registration.ServerAddressFactory;
+import com.lzadrija.url.registration.ServiceAddressFactory;
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.registration.UrlRegistrationService;
 import com.lzadrija.url.statistics.UrlHit;
@@ -31,13 +31,13 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UrlController implements UrlAPI {
 
     private final UrlRegistrationService urlRegService;
-    private final ServerAddressFactory serverAddressFactory;
+    private final ServiceAddressFactory addressFactory;
     private final UrlHitsService hitsService;
 
     @Autowired
-    public UrlController(UrlRegistrationService urlRegService, ServerAddressFactory serverAddressFactory, UrlHitsService hitsService) {
+    public UrlController(UrlRegistrationService urlRegService, ServiceAddressFactory addressFactory, UrlHitsService hitsService) {
         this.urlRegService = urlRegService;
-        this.serverAddressFactory = serverAddressFactory;
+        this.addressFactory = addressFactory;
         this.hitsService = hitsService;
     }
 
@@ -49,7 +49,7 @@ public class UrlController implements UrlAPI {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         RedirectUrl redirectUrl = urlRegService.register(auth.getName(), data);
-        String address = serverAddressFactory.create(request);
+        String address = addressFactory.create(request);
 
         return ResponseEntity
                 .status(CREATED)

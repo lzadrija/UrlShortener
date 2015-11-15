@@ -16,7 +16,7 @@ public class ShortUrlRegistrationValidatorTest extends BaseTest {
     @Mock
     private HttpServletRequest request;
     @Mock
-    private ServerAddressFactory serverAddressFactory;
+    private ServiceAddressFactory addressFactory;
     @Mock
     private UrlRepository urlRepo;
     @InjectMocks
@@ -26,7 +26,7 @@ public class ShortUrlRegistrationValidatorTest extends BaseTest {
     public void givenRegisteredShortUrlWithDomainShouldReturnTrue() {
 
         String url = VALID_SERVER_ADDRESS + "ab";
-        when(serverAddressFactory.create(request)).thenReturn(VALID_SERVER_ADDRESS);
+        when(addressFactory.create(request)).thenReturn(VALID_SERVER_ADDRESS);
         when(urlRepo.exists("ab")).thenReturn(true);
 
         boolean result = validator.isRegisteredShortUrlWithDomain(url);
@@ -38,7 +38,7 @@ public class ShortUrlRegistrationValidatorTest extends BaseTest {
     public void givenShortUrlShouldReturnFalseForIsRegisteredShortUrlWithDomain() {
 
         String url = "ab";
-        when(serverAddressFactory.create(request)).thenReturn(VALID_SERVER_ADDRESS);
+        when(addressFactory.create(request)).thenReturn(VALID_SERVER_ADDRESS);
 
         boolean result = validator.isRegisteredShortUrlWithDomain(url);
 
@@ -49,7 +49,7 @@ public class ShortUrlRegistrationValidatorTest extends BaseTest {
     public void givenServerAddressShouldReturnFalseForIsRegisteredShortUrlWithDomain() {
 
         String url = VALID_SERVER_ADDRESS;
-        when(serverAddressFactory.create(request)).thenReturn(VALID_SERVER_ADDRESS);
+        when(addressFactory.create(request)).thenReturn(VALID_SERVER_ADDRESS);
 
         boolean result = validator.isRegisteredShortUrlWithDomain(url);
 

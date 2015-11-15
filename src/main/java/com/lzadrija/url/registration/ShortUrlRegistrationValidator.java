@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 public class ShortUrlRegistrationValidator {
 
     private final HttpServletRequest request;
-    private final ServerAddressFactory serverAddressFactory;
+    private final ServiceAddressFactory addressFactory;
     private final UrlRepository urlRepo;
 
     @Autowired
-    public ShortUrlRegistrationValidator(HttpServletRequest request, ServerAddressFactory serverAddressFactory, UrlRepository urlRepo) {
+    public ShortUrlRegistrationValidator(HttpServletRequest request, ServiceAddressFactory addressFactory, UrlRepository urlRepo) {
         this.request = request;
-        this.serverAddressFactory = serverAddressFactory;
+        this.addressFactory = addressFactory;
         this.urlRepo = urlRepo;
     }
 
     public boolean isRegisteredShortUrlWithDomain(String url) {
-        String serverAddress = serverAddressFactory.create(request);
+        String serverAddress = addressFactory.create(request);
         return isNotBlank(url)
                && url.startsWith(serverAddress) && urlRepo.exists(url.replace(serverAddress, ""));
     }

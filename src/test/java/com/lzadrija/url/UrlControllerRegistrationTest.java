@@ -5,7 +5,7 @@ import com.lzadrija.ResultDescription;
 import com.lzadrija.account.Account;
 import com.lzadrija.account.AccountRepository;
 import com.lzadrija.exception.RegistrationException;
-import com.lzadrija.url.registration.ServerAddressFactory;
+import com.lzadrija.url.registration.ServiceAddressFactory;
 import com.lzadrija.url.registration.UrlRegistrationData;
 import com.lzadrija.url.registration.UrlRegistrationService;
 import java.net.URI;
@@ -39,7 +39,7 @@ public class UrlControllerRegistrationTest extends BaseControllerTest {
     @Mock
     private UrlRegistrationService urlRegService;
     @Mock
-    private ServerAddressFactory serverAddressFactory;
+    private ServiceAddressFactory addressFactory;
     @InjectMocks
     private UrlController controller;
 
@@ -70,7 +70,7 @@ public class UrlControllerRegistrationTest extends BaseControllerTest {
         RedirectUrl redirectUrl = RedirectUrl.create(a, shortUrl, data);
 
         when(urlRegService.register(a.getId(), data)).thenReturn(redirectUrl);
-        when(serverAddressFactory.create(any(HttpServletRequest.class))).thenReturn(address);
+        when(addressFactory.create(any(HttpServletRequest.class))).thenReturn(address);
 
         RequestBuilder req = post(URI.create("/register")).with(httpBasic(a.getId(), a.getPassword())).contentType(APPLICATION_JSON).content(toJson(data));
         mockMvc.perform(req)
