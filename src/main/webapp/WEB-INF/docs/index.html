@@ -429,8 +429,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_url_shortening_rest_service">URL shortening REST service</a></li>
 </ul>
 </li>
-<li><a href="#_installation_setup">Installation &amp; setup</a></li>
-<li><a href="#_usage">Usage</a></li>
 <li><a href="#_paths">Paths</a>
 <ul class="sectlevel2">
 <li><a href="#_open_an_account">Open an account</a></li>
@@ -449,6 +447,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_accountregistration">AccountRegistration</a></li>
 </ul>
 </li>
+<li><a href="#_installation_setup">Installation &amp; setup</a></li>
+<li><a href="#_usage">Usage</a></li>
 </ul>
 </div>
 </div>
@@ -509,14 +509,14 @@ BasePath: /</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>URL Shortener is a REST service used for representing long URL-s with a possibly small set of characters.+</p>
+<p>URL Shortener is a REST service used for representing long URL-s with a possibly small set of characters.</p>
 </div>
 <div class="sect2">
 <h3 id="_url_shortening">URL shortening</h3>
 <div class="paragraph">
 <p>URL shortening is a procedure based on assigning a unique number, a <em>hash</em>, to each URL that is to be shortened. This <em>hash</em> is essentially a <code>key</code> that is used to retrieve
- a long URL assigned to it. For this to be possible, each hash is encoded using a set URL permissible characters. This encoded hash can be suffixed with server address or
-application domain and used as an <em>short</em> URL itself. So each time a short URL is referenced, it is used as a key to find and redirect to a long URL mapped to it.</p>
+ a long URL assigned to it. For this to be possible, each hash is encoded using a set URL permissible characters. This encoded hash can be prefixed with server address or
+application domain and used as a <em>short</em> URL itself. So each time a short URL is referenced, it is used as a key to find and redirect to a long URL mapped to it.</p>
 </div>
 <div class="paragraph">
 <p>This service uses a number of registered long URL-s as a hash. A hash is encoded using a set of case sensitive alphanumeric characters and digits, a total of 62 characters.
@@ -573,40 +573,26 @@ Encoding procedure is basically a decimal number to base-62 conversion, where ba
 <div class="sect2">
 <h3 id="_url_shortening_rest_service">URL shortening REST service</h3>
 <div class="paragraph">
-<p>The shortening REST service is comprised of</p>
+<p>The shortening API offers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>user registration into the service by opening an account</p>
+</li>
+<li>
+<p>long URL registration and shortening</p>
+</li>
+<li>
+<p>registered short URL usage statistic retrieval</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>korisnicki login
-registracija urla za autorizirane korisnike (basic auth) statistiku koristenja i</p>
+<p>where URL registration and usage statistic is available only to authorized users with an account. Basic authentication is used and user&#8217;s account ID and password need
+to be provided in the <code>Authorization header</code>.<br>
+Each registered URL can be referenced with a given short URL by anyone. These operations and their detailed descriptions are given in the <a href="#_paths">Paths</a> segment of this document.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_installation_setup">Installation &amp; setup</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This application is developed using JDK 8 and Apache Maven,</p>
-</div>
-<div class="paragraph">
-<p>uses h2 inememory database
-shipped as war, can be deployed on any web or app server
-jetty maven plugin konfiguracija, detalji na linku
-mvn package &amp; war ili scattered mode</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_usage">Usage</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This service from terminal opened in the project&#8217;s root folder using Jetty Maven plugin.
-pokretanje u waru s custom portom
-zaustavljanje s keyem i portom</p>
-</div>
-<div class="paragraph">
-<p>opis rest apija u nastavku
-autorizacija headerom</p>
 </div>
 </div>
 </div>
@@ -1285,10 +1271,55 @@ autorizacija headerom</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_installation_setup">Installation &amp; setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This application is developed using:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK 8</a></p>
+</li>
+<li>
+<p><a href="https://maven.apache.org/download.cgi">Apache Maven</a> build automation tool</p>
+</li>
+<li>
+<p><a href="https://spring.io/">Spring</a> framework and</p>
+</li>
+<li>
+<p><a href="http://www.h2database.com/html/main.html">H2 in-memory database</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Application is packaged as a web application archive (<code>war</code> file) and it can be deployed on any web or application server.</p>
+</div>
+<div class="paragraph">
+<p>jetty maven plugin konfiguracija, detalji na linku
+mvn package &amp; war ili scattered mode</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage">Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This service from terminal opened in the project&#8217;s root folder using Jetty Maven plugin.
+pokretanje u waru s custom portom
+zaustavljanje s keyem i portom</p>
+</div>
+<div class="paragraph">
+<p>opis rest apija u nastavku
+autorizacija headerom</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-11-12 20:09:40 +01:00
+Last updated 2015-11-15 10:16:56 +01:00
 </div>
 </div>
 </body>

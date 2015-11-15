@@ -1,4 +1,5 @@
 include::generated/overview.adoc[]
-include::installationusage.adoc[]
+include::description.adoc[]
 include::generated/paths.adoc[]
 include::generated/definitions.adoc[]
+include::installationusage.adoc[]
