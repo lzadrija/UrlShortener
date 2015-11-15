@@ -69,8 +69,7 @@ To run Jetty web container using Jetty Maven plugin in terminal, from the projec
 ```mvn package jetty:run-war```     
 or to start the service in [scattered][7] mode (for testing/development purposes):   
 ```mvn jetty:run```     
-This will start one instance of Jetty web container and the shortening service will be available at the URL:    
-http://localhost:8080/  
+This will start one instance of Jetty web container and the shortening service will be available at the URL: `http://localhost:8080/`
 
 To change the port, Jetty Maven plugin can be invoked using the `jetty.port` option, for example: `-Djetty.port=8090` to change the port to `8090`.     
 This can be useful if standard `8080` port is already taken or if you want to run multiple Jetty instances in parallel.
@@ -94,7 +93,7 @@ For detailed description of the entire service, and how to use it, visit `Help p
 
 * Long URL registration and shortening
 
-`register`
+`/register`
 
 | TYPE          | VALUE            |
 | ------------- | -----------------|
