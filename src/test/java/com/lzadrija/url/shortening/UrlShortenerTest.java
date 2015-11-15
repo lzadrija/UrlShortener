@@ -1,14 +1,16 @@
 package com.lzadrija.url.shortening;
 
-import com.lzadrija.BaseTest;
 import com.lzadrija.url.UrlRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class UrlShortenerTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class UrlShortenerTest {
 
     private final ShortUrlSymbols symbols = ShortUrlSymbols.generate();
     @Mock

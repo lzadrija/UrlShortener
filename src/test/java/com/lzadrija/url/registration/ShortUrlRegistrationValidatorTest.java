@@ -1,15 +1,17 @@
 package com.lzadrija.url.registration;
 
-import com.lzadrija.BaseTest;
 import com.lzadrija.url.UrlRepository;
 import javax.servlet.http.HttpServletRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class ShortUrlRegistrationValidatorTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class ShortUrlRegistrationValidatorTest {
 
     private static final String VALID_SERVER_ADDRESS = "http://localhost:8181/";
 

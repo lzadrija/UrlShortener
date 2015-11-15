@@ -29,10 +29,10 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
     public UserDetailsService userDetailsService() {
         return (accountId) -> {
             Account a = accountRepository.findOne(accountId);
-            if (a != null) {
-                return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList(ROLE_USER));
+            if (a == null) {
+                throw new UsernameNotFoundException("Could not find the account with account ID: \"" + accountId + "\"");
             }
-            throw new UsernameNotFoundException("Could not find the account with account ID: \"" + accountId + "\"");
+            return new User(a.getId(), a.getPassword(), AuthorityUtils.createAuthorityList(ROLE_USER));
         };
     }
 

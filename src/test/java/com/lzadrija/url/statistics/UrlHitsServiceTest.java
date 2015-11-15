@@ -1,6 +1,5 @@
 package com.lzadrija.url.statistics;
 
-import com.lzadrija.BaseTest;
 import com.lzadrija.account.Account;
 import com.lzadrija.exception.ResourceNotFoundException;
 import com.lzadrija.url.RedirectUrl;
@@ -11,12 +10,15 @@ import java.util.Arrays;
 import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class UrlHitsServiceTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class UrlHitsServiceTest {
 
     @Mock
     private ShortUrlRegistrationValidator validator;

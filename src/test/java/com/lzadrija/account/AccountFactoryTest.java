@@ -1,15 +1,17 @@
 package com.lzadrija.account;
 
-import com.lzadrija.BaseTest;
 import com.lzadrija.exception.RegistrationException;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class AccountFactoryTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class AccountFactoryTest {
 
     private static final String ALPHANUMERIC_REGEX = "^[a-zA-Z0-9]*$";
 

@@ -1,17 +1,19 @@
 package com.lzadrija.account;
 
-import com.lzadrija.BaseTest;
 import com.lzadrija.exception.ResourceNotFoundException;
 import com.lzadrija.url.statistics.UrlHitsService;
 import java.util.HashMap;
 import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class AccountRegisteredUrlServiceTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class AccountRegisteredUrlServiceTest {
 
     @Mock
     private AccountRepository accountRepo;

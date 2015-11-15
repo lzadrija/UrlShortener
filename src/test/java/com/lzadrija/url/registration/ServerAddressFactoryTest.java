@@ -1,19 +1,20 @@
 package com.lzadrija.url.registration;
 
-import com.lzadrija.BaseTest;
 import javax.servlet.http.HttpServletRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class ServerAddressFactoryTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class ServerAddressFactoryTest {
 
     @Mock
     private HttpServletRequest request;
-    @Autowired
-    private ServiceAddressFactory factory;
+
+    private final ServiceAddressFactory factory = new ServiceAddressFactory();
 
     @Test
     public void givenHttpRequestShouldGetServerAddress() {

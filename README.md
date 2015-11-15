@@ -50,7 +50,7 @@ Each registered URL can be referenced with a given short URL by anyone.
 ###Installation & setup
 <p></p>
 
-This application is developed using:
+This application is built upon:
 
 1. [Java Development Kit (JDK) 8][1]  
 2. [Apache Maven][2] build automation tool 

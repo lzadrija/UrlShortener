@@ -1,6 +1,5 @@
 package com.lzadrija.url.registration;
 
-import com.lzadrija.BaseTest;
 import com.lzadrija.account.Account;
 import com.lzadrija.account.AccountRepository;
 import com.lzadrija.exception.RegistrationException;
@@ -9,13 +8,16 @@ import com.lzadrija.url.UrlRepository;
 import com.lzadrija.url.shortening.UrlShortener;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
 
-public class UrlRegistrationServiceTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class UrlRegistrationServiceTest {
 
     @Mock
     private AccountRepository accountRepo;
