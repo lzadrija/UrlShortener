@@ -20,7 +20,7 @@ Hash::
 Base-62 conversion::
 * `68719476736` is represented as `bnaN5hc` (with seven characters) in base-62
 The result short URL::
-* http://short.com/bnaN5hc
+* http://my-short-domain.com/bnaN5hc
 
 === URL shortening REST service
 

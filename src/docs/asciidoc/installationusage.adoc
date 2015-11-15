@@ -2,23 +2,28 @@
 
 This application is developed using:
 
-* link:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[JDK 8] 
-* link:https://maven.apache.org/download.cgi[Apache Maven] build automation tool 
-* link:https://spring.io/[Spring] framework and
-* link:http://www.h2database.com/html/main.html[H2 in-memory database]
+1. link:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[JDK 8] 
+2. link:https://maven.apache.org/download.cgi[Apache Maven] build automation tool 
+3. link:https://spring.io/[Spring] framework and
+4. link:http://www.h2database.com/html/main.html[H2] in-memory database
 
-Application is packaged as a web application archive (`war` file) and it can be deployed on any web or application server.
-
-jetty maven plugin konfiguracija, detalji na linku
-mvn package & war ili scattered mode
+Application is packaged as a web application archive (`war` file) and it can be deployed on any web or application server. +
+However, link:http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin[Jetty Maven plugin] included in project's `pom.xml` file can be 
+used for running link:http://www.eclipse.org/jetty/[Jetty] web container in Maven life-cycle. +
+To run this service using Jetty Maven plugin, Apache Maven and JDK 8 need to be downloaded and installed.
 
 == Usage
 
-This service from terminal opened in the project's root folder using Jetty Maven plugin.
-pokretanje u waru s custom portom
-zaustavljanje s keyem i portom
+To run Jetty web container using Jetty Maven plugin in terminal, from the project's root folder, use: +
+`mvn package jetty:run-war` +
+or to run to start the service in link:http://www.benoitschweblin.com/2013/03/run-jetty-in-maven-life-cycle.html[scattered] mode (for testing/development purposes): +
+`mvn jetty:run` 
 
-opis rest apija u nastavku
-autorizacija headerom
+This will start one instance of Jetty web container and the shortening service will be available at the URL: +
+http://localhost:8080/ +
+To change the port, Jetty Maven plugin can be invoked using the `jetty.port` option, for example: `-Djetty.port=8090` to change the port to `8090`. +
+This can be useful if standard `8080` port is already taken or if you want to run multiple Jetty instances in parallel.
 
+To stop the Jetty web container, use: `stop.key` and `stop.port` configured in the project's `pom.xml` file: +
+`mvn -Dstop.key=STOP -Dstop.port=9999 jetty:stop`
 

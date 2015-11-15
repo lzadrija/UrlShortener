@@ -561,7 +561,7 @@ Encoding procedure is basically a decimal number to base-62 conversion, where ba
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://short.com/bnaN5hc" class="bare">http://short.com/bnaN5hc</a></p>
+<p><a href="http://my-short-domain.com/bnaN5hc" class="bare">http://my-short-domain.com/bnaN5hc</a></p>
 </li>
 </ul>
 </div>
@@ -1277,8 +1277,8 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <div class="paragraph">
 <p>This application is developed using:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK 8</a></p>
 </li>
@@ -1289,16 +1289,15 @@ Each registered URL can be referenced with a given short URL by anyone. These op
 <p><a href="https://spring.io/">Spring</a> framework and</p>
 </li>
 <li>
-<p><a href="http://www.h2database.com/html/main.html">H2 in-memory database</a>.</p>
+<p><a href="http://www.h2database.com/html/main.html">H2</a> in-memory database</p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="paragraph">
-<p>Application is packaged as a web application archive (<code>war</code> file) and it can be deployed on any web or application server.</p>
-</div>
-<div class="paragraph">
-<p>jetty maven plugin konfiguracija, detalji na linku
-mvn package &amp; war ili scattered mode</p>
+<p>Application is packaged as a web application archive (<code>war</code> file) and it can be deployed on any web or application server.<br>
+However, <a href="http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin">Jetty Maven plugin</a> included in project&#8217;s <code>pom.xml</code> file can be
+used for running <a href="http://www.eclipse.org/jetty/">Jetty</a> web container in Maven life-cycle.<br>
+To run this service using Jetty Maven plugin, Apache Maven and JDK 8 need to be downloaded and installed.</p>
 </div>
 </div>
 </div>
@@ -1306,13 +1305,20 @@ mvn package &amp; war ili scattered mode</p>
 <h2 id="_usage">Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This service from terminal opened in the project&#8217;s root folder using Jetty Maven plugin.
-pokretanje u waru s custom portom
-zaustavljanje s keyem i portom</p>
+<p>To run Jetty web container using Jetty Maven plugin in terminal, from the project&#8217;s root folder, use:<br>
+<code>mvn package jetty:run-war</code><br>
+or to run to start the service in <a href="http://www.benoitschweblin.com/2013/03/run-jetty-in-maven-life-cycle.html">scattered</a> mode (for testing/development purposes):<br>
+<code>mvn jetty:run</code></p>
 </div>
 <div class="paragraph">
-<p>opis rest apija u nastavku
-autorizacija headerom</p>
+<p>This will start one instance of Jetty web container and the shortening service will be available at the URL:<br>
+<a href="http://localhost:8080/" class="bare">http://localhost:8080/</a><br>
+To change the port, Jetty Maven plugin can be invoked using the <code>jetty.port</code> option, for example: <code>-Djetty.port=8090</code> to change the port to <code>8090</code>.<br>
+This can be useful if standard <code>8080</code> port is already taken or if you want to run multiple Jetty instances in parallel.</p>
+</div>
+<div class="paragraph">
+<p>To stop the Jetty web container, use: <code>stop.key</code> and <code>stop.port</code> configured in the project&#8217;s <code>pom.xml</code> file:<br>
+<code>mvn -Dstop.key=STOP -Dstop.port=9999 jetty:stop</code></p>
 </div>
 </div>
 </div>
