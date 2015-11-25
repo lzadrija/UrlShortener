@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,8 +28,6 @@ public class AccountController {
         this.registeredUrlService = registeredUrlService;
     }
 
-    @ResponseBody
-    @ResponseStatus(value = CREATED)
     @RequestMapping(value = "/account", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountRegistration> createAccount(@Valid @RequestBody AccountId accountId) {
 
@@ -44,8 +39,6 @@ public class AccountController {
                 .body(accountRegistration);
     }
 
-    @ResponseBody
-    @ResponseStatus(value = OK)
     @RequestMapping(value = "/statistic/{accountId}", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Long>> getUrlStatistic(@PathVariable("accountId") String accountId) {
 
